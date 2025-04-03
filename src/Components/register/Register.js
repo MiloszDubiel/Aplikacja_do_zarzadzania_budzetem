@@ -10,20 +10,20 @@ const Register = ()=>{
         <p className="separator">
         </p>
         <div className="input_box">
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input type="email" id="email" placeholder="Wpisz email..." required />
         </div>
         <div className="input_box">
-            <label for="password">Hasło</label>
+            <label htmlFor="password">Hasło</label>
             <input type="password" id="password" placeholder="Wpisz hasło..." required />
         </div>
         <div className="input_box">
-            <label for="repeat-passowrd">Powtórz hasło</label>
+            <label htmlFor="repeat-passowrd">Powtórz hasło</label>
             <input type="email" id="repeat-passowrd" placeholder="Powtórz hasło..." required />
         </div>
-        <button type="submit">Zarejestruj się</button>
+        <button type="button">Zarejestruj się</button>
         <p className="sign_up">Masz już konto? 
-          <Link to="/" ><a> Zaloguj się</a></Link> 
+          <Link to="/" ><b> Zaloguj się</b></Link> 
           </p>
       </form>
       </div>
