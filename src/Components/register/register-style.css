@@ -84,3 +84,9 @@ body{
 .signup label{
   display: flex;
 }
+.error{
+  display: flex;
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}

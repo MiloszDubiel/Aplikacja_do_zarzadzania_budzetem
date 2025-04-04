@@ -96,7 +96,6 @@ form .input_box input {
     background: #F8F8FB;
     font-size: 17px;
     padding: 0px 20px;
-    margin-bottom: 25px;
     transition: 0.2s ease;
 }
 form .input_box input:focus {
@@ -109,6 +108,7 @@ form .input_box .password_title {
 }
 form .input_box {
     position: relative;
+    margin-bottom: 15px;
 }
 a {
     text-decoration: none;
