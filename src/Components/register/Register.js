@@ -10,28 +10,24 @@ const Register = ()=>{
     let passowrd = useRef(null)
     let repeatPassword = useRef(null)
 
-    //Pola błedu 
     let emailError = useRef(null)
     let passwordError = useRef(null)
 
-    //Info div
     let infoDiv = useRef(null) 
 
     const handleRegister = () => {
-        //Wartosci pul formualrza 
-        const emeilValue = String(email.current.value.toString())
+        const emailValue = String(email.current.value.toString()).trim().toLowerCase()
         const passwordValue = String(passowrd.current.value.toString())
         const repeatPasswordValue = String(repeatPassword.current.value.toString())
 
         //RegEx do hasła 8 znaków, min 1 cyfra, 1 liczba, 1 znak specjalny
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}[\]|;:'",.<>?]).{8,}$/
 
-        //Reset pola błedu 
         emailError.current.textContent = ' '
         passwordError.current.textContent = ' '
 
         let isValid = true
-        if(!emeilValue.includes('@')){
+        if(!emailValue.includes('@')){
           emailError.current.textContent = 'Błędny adres email.'
           isValid = false
         }
@@ -42,7 +38,7 @@ const Register = ()=>{
         }
         if(isValid){
           axios.post('http://localhost:3001/register', {
-            email: emeilValue,
+            email: emailValue,
             password: passwordValue
           }).then(res => {
             infoDiv.current.style.display = 'block'
@@ -50,7 +46,7 @@ const Register = ()=>{
           }) 
         }
       }
-      
+  
     return (
       <>
         <div className="info" ref={infoDiv} onClick={()=>{
