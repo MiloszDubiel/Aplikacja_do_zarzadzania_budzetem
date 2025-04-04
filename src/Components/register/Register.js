@@ -1,5 +1,5 @@
 import React, {use, useRef} from "react";
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
 import axios from "axios";
 import './register-style.css'
 
@@ -11,8 +11,11 @@ const Register = ()=>{
     let repeatPassword = useRef(null)
 
     //Pola błedu 
-    const emailError = useRef(null)
-    const passwordError = useRef(null)
+    let emailError = useRef(null)
+    let passwordError = useRef(null)
+
+    //Info div
+    let infoDiv = useRef(null) 
 
     const handleRegister = () => {
         //Wartosci pul formualrza 
@@ -41,37 +44,43 @@ const Register = ()=>{
           axios.post('http://localhost:3001/register', {
             email: emeilValue,
             password: passwordValue
+          }).then(res => {
+            infoDiv.current.style.display = 'block'
+            infoDiv.current.textContent = res.data.info
           }) 
         }
       }
-
-
+      
     return (
-      <div className="login_form">
-        <form action="#">
-        <h3 style={{marginBottom: 10+"px"}}>Zarejestruj</h3>
-        <p className="separator">
-        </p>
-        <div className="input_box">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Wpisz email..." required ref={/*Przypisuje referencje tego inputa do useRef w email*/ email}/>
-            <p className="error" id="email-error" ref={emailError}></p>
+      <>
+        <div className="info" ref={infoDiv} onClick={()=>{
+          infoDiv.current.style.display = 'none'
+        }}></div>
+        <div className="login_form">
+          <form action="#">
+            <h3 style={{marginBottom: 10+"px"}}>Zarejestruj</h3>
+            <p className="separator">
+            </p>
+            <div className="input_box">
+                <label htmlFor="email">Email</label>
+                <input type="email" id="email" placeholder="Wpisz email..." required ref={/*Przypisuje referencje tego inputa do useRef w email*/ email}/>
+                <p className="error" id="email-error" ref={emailError}></p>
+            </div>
+            <div className="input_box">
+                <label htmlFor="password">Hasło</label>
+                <input type="password" id="password" placeholder="Wpisz hasło..." required ref={passowrd}/>
+            </div>
+            <div className="input_box">
+                <label htmlFor="repeat-passowrd">Powtórz hasło</label>
+                <input type="password" id="repeat-passowrd" placeholder="Powtórz hasło..." required ref={repeatPassword} />
+                <p className="error" ref={passwordError}></p>
+            </div>
+            <button type="button" onClick={handleRegister}>Zarejestruj się</button>
+            <p className="sign_up">Masz już konto? 
+              <Link to="/" ><b> Zaloguj się</b></Link> 
+            </p>
+          </form>
         </div>
-        <div className="input_box">
-            <label htmlFor="password">Hasło</label>
-            <input type="password" id="password" placeholder="Wpisz hasło..." required ref={passowrd}/>
-        </div>
-        <div className="input_box">
-            <label htmlFor="repeat-passowrd">Powtórz hasło</label>
-            <input type="password" id="repeat-passowrd" placeholder="Powtórz hasło..." required ref={repeatPassword} />
-            <p className="error" ref={passwordError}></p>
-        </div>
-        <button type="button" onClick={handleRegister}>Zarejestruj się</button>
-        <p className="sign_up">Masz już konto? 
-          <Link to="/" ><b> Zaloguj się</b></Link> 
-        </p>
-      </form>
-      </div>
-    )
+      </>)
 }
 export default Register

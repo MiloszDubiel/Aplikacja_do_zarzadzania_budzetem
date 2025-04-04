@@ -7,16 +7,6 @@
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
 }
-body {
-    width: 100%;
-    min-height: 100vh;
-    padding: 0 10px;
-    display: flex;
-    background: #fff;
-    justify-content: center;
-    align-items: center;
-}
-/* Login form styling */
 .login_form {
     width: 100%;
     min-width: 400px;

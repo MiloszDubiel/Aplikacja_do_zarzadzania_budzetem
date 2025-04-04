@@ -25,7 +25,36 @@ app.use(express.json())
 
 //Endpoint post
 app.post('/register', (req, res)=>{
-  console.log(req.body)
+  const {email, password} = req.body
+  let sql = "SELECT * FROM users WHERE email = ?"
+  connection.query(sql, [email], (err, result)=>{
+    if(err)
+      res.json({info: err})
+    else if([...result].length > 0)
+      res.json({info: "Konto istnieje na podany email."})
+    else{
+      let sql = "INSERT INTO users(email, password) VALUES (?,?)"
+      const salt = new Uint8Array(16);
+      crypto.getRandomValues(salt);
+
+      bcrypt.bcrypt({
+        password: "pass",
+        salt, 
+        costFactor: 11,
+        outputType: "encoded"
+      }).then(data =>{
+        connection.query(sql, [email, data], (err, result)=>{
+          if(err){
+            res.json({info: err})
+          }else
+            res.json({info: "Pomyślnie zarejstrowano."})
+        })
+      });
+  }})
+})
+
+app.post('/login', (req, res)=>{
+
 })
 
 //Nadłsuchiwanie portu 3001
