@@ -67,8 +67,6 @@ app.post('/login', (req, res)=>{
         res.json({info: "Niepoprawne hasło"})
     })
   })
-
-
 })
 
 //Nadłsuchiwanie portu 3001

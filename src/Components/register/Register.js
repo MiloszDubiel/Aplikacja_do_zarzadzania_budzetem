@@ -28,12 +28,12 @@ const Register = ()=>{
 
         let isValid = true
         if(!emailValue.includes('@')){
-          emailError.current.textContent = 'Błędny adres email.'
+          emailError.current.textContent = 'Błędny adres email'
           isValid = false
         }
 
         if(!regex.test(passwordValue) || passwordValue != repeatPasswordValue){
-          passwordError.current.textContent = 'Hasła są różne lub niezgodne z standardem.'
+          passwordError.current.textContent = 'Hasła są różne lub niezgodne ze standardem'
           isValid = false
         }
         if(isValid){
