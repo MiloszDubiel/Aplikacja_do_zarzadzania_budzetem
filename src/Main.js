@@ -2,8 +2,10 @@ import React from "react";
 import { BrowserRouter ,Router, Route, Routes } from "react-router-dom";
 import Login from "./Components/login/Login";
 import Register from "./Components/register/Register";
+import Navbar from "./Components/navbar/Navbar"; 
+import Dashboard from "./Components/dashboard/Dashboard";
 
-const Main = ()=>{
+const Main = () => {
     return(
         <BrowserRouter>
             <Routes>
@@ -11,6 +13,9 @@ const Main = ()=>{
             </Routes>
             <Routes>
                 <Route path="/register" element={<Register />} />       
+            </Routes>
+            <Routes>
+                <Route path="/main-board" element={<> <Navbar />  <Dashboard/> </>} />
             </Routes>
         </BrowserRouter>
     )

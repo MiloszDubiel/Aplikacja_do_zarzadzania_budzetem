@@ -62,7 +62,7 @@ app.post('/login', (req, res)=>{
     let hash = result[0].password
     bcrypt.compare(password, hash).then(resp =>{
       if(resp)
-        res.json({info: "Zalogowano"})
+        res.json({info: "Zalogowano", data: result})
       else
         res.json({info: "Niepoprawne hasło"})
     })

@@ -4,28 +4,25 @@ import './login-style.css'
 import axios from "axios"
 
 
-
-const Login = ()=>{
+const Login = () => {
     
     let email = useRef(null)
     let passoword = useRef(null)
     let emailError = useRef(null)
-    let passowordError = useRef(null)
+    let passwordError = useRef(null)
     
     let infoDiv = useRef(null) 
-    
-
     const handleLogin = () =>{
         let emailValue = String(email.current.value.toString()).trim().toLowerCase()
         let passwordValue = String(passoword.current.value.toString())
         
         emailError.current.textContent = ''
-        passowordError.current.textContent = ''
+        passwordError.current.textContent = ''
 
         if(!emailValue.includes('@'))
             emailError.current.textContent = 'Niepoprawny email'
         else if(passwordValue.length <= 0){
-            passowordError.current.textContent = 'Puste hasło'
+            passwordError.current.textContent = 'Puste hasło'
         }
         else{
             axios.post('http://localhost:3001/login', {
@@ -57,7 +54,7 @@ const Login = ()=>{
                 <label htmlFor="password">Wpisz hasło</label>
                 </div>
                 <input type="password" id="password" placeholder="Wpisz hasło..." required ref={passoword}/>
-                <p className="error" id="email-error" ref={passowordError}></p>
+                <p className="error" id="email-error" ref={passwordError}></p>
             </div>
             <button type="button" onClick={handleLogin}>Zaloguj się</button>
             <p className="sign_up">Nie masz konta?  
@@ -68,4 +65,6 @@ const Login = ()=>{
     </>
     )
 }
+
+
 export default Login
