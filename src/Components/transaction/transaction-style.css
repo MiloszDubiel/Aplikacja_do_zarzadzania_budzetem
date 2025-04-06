@@ -133,73 +133,73 @@ li {
 
 
 
-#content main .table-data {
+.transactions {
 	display: flex;
 	flex-wrap: wrap;
 	grid-gap: 24px;
 	margin-top: 24px;
 	width: 100%;
 	color: var(--dark);
-	height: 66%;
+	height: 89%;
 	
 }
-#content main .table-data > div {
+#content main .transactions > div {
 	border-radius: 20px;
 	background: var(--light);
 	padding: 24px;
 	overflow-x: auto;
 	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
 }
-#content main .table-data .head {
+#content main .transactions .head {
 	display: flex;
 	align-items: center;
 	grid-gap: 16px;
 	margin-bottom: 24px;
 }
-#content main .table-data .head h3 {
+#content main .transactions .head h3 {
 	margin-right: auto;
 	font-size: 24px;
 	font-weight: 600;
 }
-#content main .table-data .head .bx {
+#content main .transactions .head .bx {
 	cursor: pointer;
 }
 
-#content main .table-data .order {
+#content main .transactions .order {
 	flex-grow: 1;
 	flex-basis: 500px;
 }
-#content main .table-data .order table {
+#content main .transactions .order table {
 	width: 100%;
 	border-collapse: collapse;
 }
-#content main .table-data .order table th {
+#content main .transactions .order table th {
 	padding-bottom: 12px;
 	font-size: 13px;
 	text-align: left;
 	border-bottom: 1px solid var(--grey);
 }
-#content main .table-data .order table td {
+#content main .transactions .order table td {
 	padding: 16px 0;
 }
 
-#content main .table-data .order table tbody tr:hover {
+#content main .transactions .order table tbody tr:hover {
 	background: var(--grey);
 }
-#content main .table-data .order table tr td .status {
+#content main .transactions .order table tr td .status {
 	font-size: 10px;
 	padding: 6px 16px;
 	color: var(--light);
 	border-radius: 20px;
 	font-weight: 700;
 }
-#content main .table-data .order table tr td .status.incom {
+#content main .transactions .order table tr td .status.incom {
 	background: #eca217;
 	width: 100px;
 	display: flex;
 	text-align: center ;
 }
-#content main .table-data .order table tr td .status.spend {
+#content main .transactions .order table tr td .status.spend {
 	background: rgb(247, 205, 22);
 	width: 100px;
 	display: flex;
@@ -275,6 +275,47 @@ li {
 	background: var(--orange);
   }
 
+  .add-transaction{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 400px;
+	width: 100%;
+	border-radius: 25px;
+	padding: 30px;
+	border: 1px solid #ffffff40;
+	height: 100%;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+	
+  }
+
+.btn-select {
+	height: 36px;
+	padding: 0 16px;
+	border-radius: 36px;
+	background: var(--orange);
+    border: none;
+	color: var(--light);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-gap: 10px;
+	font-weight: 500;
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.btn-select option {
+    background: #fff;
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.add-transaction .head h3{
+
+   
+}
+
 @media screen and (max-width: 768px) {
 	
 	#content {
@@ -292,7 +333,7 @@ li {
 		width: calc(100% - 60px);
 		left: 200px;
 	}
-	.profile-card{
+	.add-transaction{
 		max-width: 100%;
 	}
 

@@ -1,16 +1,20 @@
 import React from "react";
 import './navbar-style.css'
 import { MdOutlineDashboard, MdHistory, MdOutlineAccountCircle } from "react-icons/md";
-import { GrOverview ,GrTransaction, GrPowerShutdown } from "react-icons/gr";
+import { GrTransaction, GrPowerShutdown } from "react-icons/gr";
 import { IoStatsChartOutline, IoSettingsOutline } from "react-icons/io5";
 import { CiMoneyBill } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
+import ForbiddenContent from "../forbidden/Forbedden";
 
 
-const Navbar = () =>{
-    return(
-    <>
+const Navbar = () => {
+
+    const userData = JSON.parse(window.localStorage.getItem("userData"))
+	const isLogged = window.localStorage.getItem("isLogged")
+
+    const content = (isLogged == null || isLogged == "0" ? "" :
         <aside className="sidebar">
             <div className="sidebar-header">
                 <img src="images/logo.png" alt="logo" />
@@ -21,14 +25,14 @@ const Navbar = () =>{
                 <div className="menu-separator"></div>
             </h4>
             <li>
-               <Link to="/dashboard" className="link"><span className="icon" ><MdOutlineDashboard className="icons"/></span>Dashboard</Link>
+            <Link to="/dashboard" className="link"><span className="icon" ><MdOutlineDashboard className="icons"/></span>Dashboard</Link>
             </li>
             <h4>
                 <span>Główne funckje</span>
                 <div className="menu-separator"></div>
             </h4>
             <li>
-                <Link to="" className="link"><span className="icon"><GrTransaction className="icons" /></span>Transakcje</Link>
+                <Link to="/transaction" className="link"><span className="icon"><GrTransaction className="icons" /></span>Transakcje</Link>
             </li>
             <li>
                 <Link to="" className="link"><span className="icon"><MdHistory className="icons" /></span>Histoiria</Link>
@@ -53,7 +57,11 @@ const Navbar = () =>{
                 <Link to="" className="link"><span className="icon"><IoSettingsOutline className="icons" /></span>Ustawienia</Link>
             </li>
             <li>
-                <Link to="" className="link"><span className="icon"><GrPowerShutdown className="icons" /></span>Wyloguj</Link>
+                <Link to="/" onClick={() => {
+                    window.localStorage.setItem("userData", JSON.stringify({data: null}))
+                    window.localStorage.setItem("isLogged", 0)
+                    
+                    }} className="link"><span className="icon"><GrPowerShutdown className="icons" /></span>Wyloguj</Link>
             </li>
             </ul>
             <div className="user-account">
@@ -63,8 +71,13 @@ const Navbar = () =>{
                 </div>
             </div>
             </div>
-        </aside>
-    </>
+        </aside>) 
+
+
+    return(
+        <>
+            {content}
+        </>     
     )
 }
 export default Navbar
