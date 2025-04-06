@@ -5,24 +5,6 @@ const Dashboard = () =>{
     return(
     <>
 	<section id="content">
-		<nav>
-			<i class='bx bx-menu' ></i>
-			<form action="#">
-				<div class="form-input">
-					<input type="search" placeholder="Search..."/>
-					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
-				</div>
-			</form>
-			<input type="checkbox" id="switch-mode" hidden/>
-			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="notification">
-				<i class='bx bxs-bell' ></i>
-				<span class="num">8</span>
-			</a>
-			<a href="#" class="profile">
-				<img src="img/people.png"/>
-			</a>
-		</nav>
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -32,14 +14,11 @@ const Dashboard = () =>{
 							<a href="#">Dashboard</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
-						<li>
-							<a class="active" href="#">Home</a>
-						</li>
 					</ul>
 				</div>
 				<a href="#" class="btn-download">
 					<i class='bx bxs-cloud-download' ></i>
-					<span class="text">Download PDF</span>
+					<span class="text">Pobierz w PDF</span>
 				</a>
 			</div>
 
@@ -47,22 +26,22 @@ const Dashboard = () =>{
 				<li>
 					<i class='bx bxs-calendar-check' ></i>
 					<span class="text">
-						<h3>1020</h3>
-						<p>New Order</p>
+						<h3>Stan konta</h3>
+						<p>2300 zł</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bxs-group' ></i>
 					<span class="text">
-						<h3>2834</h3>
-						<p>Visitors</p>
+						<h3>Wydatki</h3>
+						<p>1000 zł</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bxs-dollar-circle' ></i>
 					<span class="text">
-						<h3>$2543</h3>
-						<p>Total Sales</p>
+						<h3>Przychody</h3>
+						<p>2000 zł</p>
 					</span>
 				</li>
 			</ul>
@@ -71,92 +50,69 @@ const Dashboard = () =>{
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3>Recent Orders</h3>
+						<h3>Histora</h3>
 						<i class='bx bx-search' ></i>
 						<i class='bx bx-filter' ></i>
 					</div>
 					<table>
 						<thead>
 							<tr>
-								<th>User</th>
-								<th>Date Order</th>
-								<th>Status</th>
+								<th>Kategoria</th>
+								<th>Data transakcji</th>
+								<th>Typ</th>
+								<th>Opis</th>
+								<th>Kwota</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>
-									<img src="img/people.png"/>
 									<p>John Doe</p>
 								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
+								<td>01-10-2024</td>
+								<td><span class="status incom">Przychody</span></td>
+								<td>Wypłata</td>
+								<td>2500 zł</td>
 							</tr>
 							<tr>
 								<td>
-									<img src="img/people.png"/>
 									<p>John Doe</p>
 								</td>
-								<td>01-10-2021</td>
-								<td><span class="status pending">Pending</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png"/>
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status process">Process</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png"/>
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status pending">Pending</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png"/>
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
+								<td>02-10-2024</td>
+								<td><span class="status spend">Wydatki</span></td>
+								<td>Karma dla kota</td>
+								<td>70 zł</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="todo">
-					<div class="head">
-						<h3>Todos</h3>
-						<i class='bx bx-plus' ></i>
-						<i class='bx bx-filter' ></i>
+					<div class="profile-card">
+						<div class="image">
+							<img src="images/profile.jpg" alt="" class="profile-pic"/>
+						</div>
+						<div class="data">
+							<h2>Miłosz Dubiel</h2>
+						</div>
+						<div class="row">
+							<div class="info">
+								<h3>Following</h3>
+								<span>120</span>
+							</div>
+							<div class="info">
+								<h3>Followers</h3>
+								<span>5000</span>
+							</div>
+							<div class="info">
+								<h3>Posats</h3>
+								<span>209</span>
+							</div>
+						</div>
+						<div class="buttons">
+							<a href="#" class="btn">Zmień email</a>
+							<a href="#" class="btn">Zmień hasło</a>
+						</div>
 					</div>
-					<ul class="todo-list">
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-					</ul>
 				</div>
-			</div>
 		</main>
 	</section>
     </>)

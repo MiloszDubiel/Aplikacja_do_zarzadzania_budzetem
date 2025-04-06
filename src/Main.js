@@ -15,7 +15,7 @@ const Main = () => {
                 <Route path="/register" element={<Register />} />       
             </Routes>
             <Routes>
-                <Route path="/main-board" element={<> <Navbar />  <Dashboard/> </>} />
+                <Route path="/dashboard" element={<> <Navbar />  <Dashboard/> </>} />
             </Routes>
         </BrowserRouter>
     )

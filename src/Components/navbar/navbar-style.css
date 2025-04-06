@@ -8,6 +8,7 @@
 .sidebar {
   height: 100%;
   width: 80px;
+  min-width: 80px !important;
   display: flex;
   overflow-x: hidden;
   flex-direction: column;
@@ -70,7 +71,7 @@
 .sidebar-links::-webkit-scrollbar {
   display: none;
 }
-.sidebar-links li a {
+.sidebar-links li .link {
   display: flex;
   align-items: center;
   gap: 0 20px;
