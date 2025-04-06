@@ -1,45 +1,50 @@
 import React from "react";
 import './dashboard-style.css'
 
+
+
 const Dashboard = () =>{
+
+	const userData = JSON.parse(window.localStorage.getItem("data"))[0]
+	console.log(userData)
     return(
     <>
 	<section id="content">
 		<main>
-			<div class="head-title">
-				<div class="left">
+			<div className="head-title">
+				<div className="left">
 					<h1>Dashboard</h1>
-					<ul class="breadcrumb">
+					<ul className="breadcrumb">
 						<li>
 							<a href="#">Dashboard</a>
 						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
+						<li><i className='bx bx-chevron-right' ></i></li>
 					</ul>
 				</div>
-				<a href="#" class="btn-download">
-					<i class='bx bxs-cloud-download' ></i>
-					<span class="text">Pobierz w PDF</span>
+				<a href="#" className="btn-download">
+					<i className='bx bxs-cloud-download' ></i>
+					<span className="text">Pobierz w PDF</span>
 				</a>
 			</div>
 
-			<ul class="box-info">
+			<ul className="box-info">
 				<li>
-					<i class='bx bxs-calendar-check' ></i>
-					<span class="text">
+					<i className='bx bxs-calendar-check' ></i>
+					<span className="text">
 						<h3>Stan konta</h3>
 						<p>2300 zł</p>
 					</span>
 				</li>
 				<li>
-					<i class='bx bxs-group' ></i>
-					<span class="text">
+					<i className='bx bxs-group' ></i>
+					<span className="text">
 						<h3>Wydatki</h3>
 						<p>1000 zł</p>
 					</span>
 				</li>
 				<li>
-					<i class='bx bxs-dollar-circle' ></i>
-					<span class="text">
+					<i className='bx bxs-dollar-circle' ></i>
+					<span className="text">
 						<h3>Przychody</h3>
 						<p>2000 zł</p>
 					</span>
@@ -47,12 +52,12 @@ const Dashboard = () =>{
 			</ul>
 
 
-			<div class="table-data">
-				<div class="order">
-					<div class="head">
+			<div className="table-data">
+				<div className="order">
+					<div className="head">
 						<h3>Histora</h3>
-						<i class='bx bx-search' ></i>
-						<i class='bx bx-filter' ></i>
+						<i className='bx bx-search' ></i>
+						<i className='bx bx-filter' ></i>
 					</div>
 					<table>
 						<thead>
@@ -70,7 +75,7 @@ const Dashboard = () =>{
 									<p>John Doe</p>
 								</td>
 								<td>01-10-2024</td>
-								<td><span class="status incom">Przychody</span></td>
+								<td><span className="status incom">Przychody</span></td>
 								<td>Wypłata</td>
 								<td>2500 zł</td>
 							</tr>
@@ -79,37 +84,34 @@ const Dashboard = () =>{
 									<p>John Doe</p>
 								</td>
 								<td>02-10-2024</td>
-								<td><span class="status spend">Wydatki</span></td>
+								<td><span className="status spend">Wydatki</span></td>
 								<td>Karma dla kota</td>
 								<td>70 zł</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-					<div class="profile-card">
-						<div class="image">
-							<img src="images/profile.jpg" alt="" class="profile-pic"/>
+					<div className="profile-card">
+						<div className="image">
+							<img src="images/profile.jpg" alt="" className="profile-pic"/>
 						</div>
-						<div class="data">
+						<div className="data">
 							<h2>Miłosz Dubiel</h2>
 						</div>
-						<div class="row">
-							<div class="info">
-								<h3>Following</h3>
-								<span>120</span>
+						<div className="row">
+							<div className="user-info">
+								<h3>Email:</h3>
+								<span>{userData.email}</span>
 							</div>
-							<div class="info">
-								<h3>Followers</h3>
-								<span>5000</span>
+							<div className="user-info">
+								<h3>Data dołączenia: </h3>
+								<span>{userData.created_at.substring(0, userData.created_at.indexOf('T'))}</span>
 							</div>
-							<div class="info">
-								<h3>Posats</h3>
-								<span>209</span>
-							</div>
+			
 						</div>
-						<div class="buttons">
-							<a href="#" class="btn">Zmień email</a>
-							<a href="#" class="btn">Zmień hasło</a>
+						<div className="buttons">
+							<a href="#" className="btn">Zmień email</a>
+							<a href="#" className="btn">Zmień hasło</a>
 						</div>
 					</div>
 				</div>

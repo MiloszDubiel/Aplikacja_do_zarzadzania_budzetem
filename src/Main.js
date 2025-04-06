@@ -15,7 +15,7 @@ const Main = () => {
                 <Route path="/register" element={<Register />} />       
             </Routes>
             <Routes>
-                <Route path="/dashboard" element={<> <Navbar />  <Dashboard/> </>} />
+                <Route path="/dashboard" element={<div style={{display: "flex", width: 100+"%", height: 100+"%" }}> <Navbar />  <Dashboard/> </div>} />
             </Routes>
         </BrowserRouter>
     )

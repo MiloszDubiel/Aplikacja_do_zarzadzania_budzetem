@@ -1,7 +1,10 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import './login-style.css'
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
+
+
 
 
 const Login = () => {
@@ -10,8 +13,27 @@ const Login = () => {
     let passoword = useRef(null)
     let emailError = useRef(null)
     let passwordError = useRef(null)
-    
     let infoDiv = useRef(null) 
+
+    const naviagate = useNavigate()
+
+
+    const [userData, setUserData] = useState(null)
+    useEffect(()=>{
+        if(userData == null)
+            return
+        axios.post('http://localhost:3001/login', {
+            email: userData.email,
+            password: userData.passoword
+        }).then(res =>{
+            window.localStorage.setItem("data", JSON.stringify(res.data.data))
+            infoDiv.current.style.display = 'block'
+            infoDiv.current.textContent = res.data.info
+        })
+        setTimeout( naviagate('/dashboard'), 3000)
+    },[userData])
+
+
     const handleLogin = () =>{
         let emailValue = String(email.current.value.toString()).trim().toLowerCase()
         let passwordValue = String(passoword.current.value.toString())
@@ -25,15 +47,15 @@ const Login = () => {
             passwordError.current.textContent = 'Puste hasło'
         }
         else{
-            axios.post('http://localhost:3001/login', {
+            setUserData({
                 email: emailValue,
-                password: passwordValue
-            }).then(res =>{
-                infoDiv.current.style.display = 'block'
-                infoDiv.current.textContent = res.data.info
+                passoword: passwordValue
             })
+  
+                
         }
     }
+
     return (
         <>
         <div className="info" ref={infoDiv} onClick={()=>{
