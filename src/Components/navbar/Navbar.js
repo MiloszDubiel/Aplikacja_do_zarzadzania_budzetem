@@ -8,9 +8,11 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 
-const Navbar = () =>{
-    return(
-    <>
+const Navbar = () => {
+
+    const userData = JSON.parse(window.localStorage.getItem("userData"))
+
+    const Navbar = <>
         <aside className="sidebar">
             <div className="sidebar-header">
                 <img src="images/logo.png" alt="logo" />
@@ -21,7 +23,7 @@ const Navbar = () =>{
                 <div className="menu-separator"></div>
             </h4>
             <li>
-               <Link to="/dashboard" className="link"><span className="icon" ><MdOutlineDashboard className="icons"/></span>Dashboard</Link>
+            <Link to="/dashboard" className="link"><span className="icon" ><MdOutlineDashboard className="icons"/></span>Dashboard</Link>
             </li>
             <h4>
                 <span>Główne funckje</span>
@@ -53,7 +55,7 @@ const Navbar = () =>{
                 <Link to="" className="link"><span className="icon"><IoSettingsOutline className="icons" /></span>Ustawienia</Link>
             </li>
             <li>
-                <Link to="" className="link"><span className="icon"><GrPowerShutdown className="icons" /></span>Wyloguj</Link>
+                <Link to="/" onClick={() => {window.localStorage.setItem("userData", JSON.stringify({data: null, logged: false}))}} className="link"><span className="icon"><GrPowerShutdown className="icons" /></span>Wyloguj</Link>
             </li>
             </ul>
             <div className="user-account">
@@ -65,6 +67,12 @@ const Navbar = () =>{
             </div>
         </aside>
     </>
+
+
+    return(
+        <>
+            {!userData.logged ? "" : Navbar}
+        </>     
     )
 }
 export default Navbar

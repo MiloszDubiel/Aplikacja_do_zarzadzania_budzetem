@@ -1,15 +1,11 @@
-import React from "react";
+import React, { use } from "react";
 import './dashboard-style.css'
 
 
 
 const Dashboard = () =>{
-
-	const userData = JSON.parse(window.localStorage.getItem("data"))[0]
-	console.log(userData)
-    return(
-    <>
-	<section id="content">
+	const userData = JSON.parse(window.localStorage.getItem("userData"))
+	const LoggedContent = (userData.logged ? <section id="content">
 		<main>
 			<div className="head-title">
 				<div className="left">
@@ -101,11 +97,11 @@ const Dashboard = () =>{
 						<div className="row">
 							<div className="user-info">
 								<h3>Email:</h3>
-								<span>{userData.email}</span>
+								<span>{userData.data[0].email}</span>
 							</div>
 							<div className="user-info">
 								<h3>Data dołączenia: </h3>
-								<span>{userData.created_at.substring(0, userData.created_at.indexOf('T'))}</span>
+								<span>{ userData.data[0].created_at.substring(0, userData.data[0].created_at.indexOf('T')) }</span>
 							</div>
 			
 						</div>
@@ -116,7 +112,12 @@ const Dashboard = () =>{
 					</div>
 				</div>
 		</main>
-	</section>
+	</section> : "")
+
+	const ForbiddenContent = <div>Zawartość niedostępna</div> 
+
+    return(<>
+		{userData.logged ? LoggedContent : ForbiddenContent}
     </>)
 }
 

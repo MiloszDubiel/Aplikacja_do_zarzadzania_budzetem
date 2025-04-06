@@ -16,23 +16,33 @@ const Login = () => {
     let infoDiv = useRef(null) 
 
     const naviagate = useNavigate()
-
-
     const [userData, setUserData] = useState(null)
+    const [isLogged] = useState(JSON.parse(window.localStorage.getItem("userData")).logged)
+
+    useEffect(()=>{
+        if(isLogged)
+            naviagate('/dashboard')
+    })
     useEffect(()=>{
         if(userData == null)
             return
+
         axios.post('http://localhost:3001/login', {
             email: userData.email,
             password: userData.passoword
         }).then(res =>{
-            window.localStorage.setItem("data", JSON.stringify(res.data.data))
-            infoDiv.current.style.display = 'block'
-            infoDiv.current.textContent = res.data.info
+            
+            if(res.data.info == 'Niepoprawne hasło' || res.data.info == 'Konto nie istnieje' || res.data.info == 'Niepoprawne hasło'){
+                infoDiv.current.style.display = 'block'
+                infoDiv.current.textContent = res.data.info
+            }else {
+                window.localStorage.setItem("userData", JSON.stringify({data: res.data.data, logged: true}))
+                setTimeout( () => naviagate('/dashboard'), 1000)
+                infoDiv.current.style.display = 'block'
+                infoDiv.current.textContent = res.data.info
+            } 
         })
-        setTimeout( naviagate('/dashboard'), 3000)
     },[userData])
-
 
     const handleLogin = () =>{
         let emailValue = String(email.current.value.toString()).trim().toLowerCase()
@@ -40,7 +50,6 @@ const Login = () => {
         
         emailError.current.textContent = ''
         passwordError.current.textContent = ''
-
         if(!emailValue.includes('@'))
             emailError.current.textContent = 'Niepoprawny email'
         else if(passwordValue.length <= 0){
@@ -50,9 +59,7 @@ const Login = () => {
             setUserData({
                 email: emailValue,
                 passoword: passwordValue
-            })
-  
-                
+            })     
         }
     }
 
@@ -84,9 +91,7 @@ const Login = () => {
             </p>
             </form>
         </div>
-    </>
+        </>
     )
 }
-
-
 export default Login
