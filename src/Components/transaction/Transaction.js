@@ -1,12 +1,12 @@
 import React from "react";
 import './transaction-style.css'
-
+import ForbiddenContent from "../forbidden/Forbedden";
 
 const Transaction = () =>{
     const userData = JSON.parse(window.localStorage.getItem("userData"))
 	const isLogged = window.localStorage.getItem("isLogged")
 
-    const content = (isLogged == null || isLogged == "0" ? "" :
+    const content = (isLogged == null || isLogged == "0" ?  <ForbiddenContent/> :
         <section id="content">
 		<main>
 			<div className="head-title">
@@ -38,6 +38,28 @@ const Transaction = () =>{
 								<th>Typ</th>
 								<th>Opis</th>
 								<th>Kwota</th>
+								<th>Akcja</th>
+							</tr>
+							<tr className="transaction-tr">
+								<th>
+									<input type="text"/>
+								</th>
+								<th>
+									<input type="date"/>
+								</th>
+								<th>
+									<select>
+										<option>Przychody</option>
+										<option>Wydatki</option>
+									</select>
+								</th>
+								<th>
+									<input type="text"/>
+								</th>
+								<th>
+									<input type="number" />
+								</th>
+								<th><td><button className="add-record">Dodaj</button></td></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -49,6 +71,7 @@ const Transaction = () =>{
 								<td><span className="status incom">Przychody</span></td>
 								<td>Wypłata</td>
 								<td>2500 zł</td>
+								<td><button className="delete-record">Usuń</button></td>
 							</tr>
 							<tr>
 								<td>
@@ -58,15 +81,11 @@ const Transaction = () =>{
 								<td><span className="status spend">Wydatki</span></td>
 								<td>Karma dla kota</td>
 								<td>70 zł</td>
+								<td><button className="delete-record">Usuń</button></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-					<div className="add-transaction">
-                        <div className="head">
-                            <h3 >Dodaj transakcje</h3>
-                        </div>
-					</div>
 				</div>
 		</main>
 	</section>) 

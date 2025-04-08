@@ -193,15 +193,17 @@ li {
 	border-radius: 20px;
 	font-weight: 700;
 }
-#content main .transactions .order table tr td .status.incom {
+.status.incom {
 	background: #eca217;
-	width: 100px;
+	width: 150px;
+	height: 30px;
 	display: flex;
 	text-align: center ;
 }
-#content main .transactions .order table tr td .status.spend {
+.status.spend {
 	background: rgb(247, 205, 22);
-	width: 100px;
+	height: 30px;
+	width: 150px;
 	display: flex;
 }
 
@@ -311,10 +313,90 @@ li {
     cursor: pointer;
 }
 
-.add-transaction .head h3{
-
-   
+.add-transaction{
+	display: block;
 }
+
+.transaction-tr input{
+    width: 50%;
+    height: 30px;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0 ;
+	border-bottom: 1px var(--grey) solid ;
+    outline: none;
+    background: #F8F8FB;
+    font-size: 14px;
+    padding: 0px;
+    transition: 0.2s ease;
+}
+.transaction-tr select{
+	height: 30px;
+	width: 150px;
+	padding: 0 16px;
+	border-radius: 36px;
+	background: var(--orange);
+    border: none;
+	color: var(--light);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-gap: 10px;
+	font-weight: 500;
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+.transaction-tr select option {
+	background: #fff;
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.transaction-tr > th{
+	padding: 0 !important;
+}
+.delete-record, .add-record{
+	height: 30px;
+	width: 50px;
+	border: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 50px;
+	background: var(--red);
+	color: var(--light);
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+	transition: 0.2s;
+}
+.delete-record:hover{
+	background: #d8332d
+}
+.add-record{
+	background: rgb(45, 158, 45);
+}
+.add-record:hover{
+	background: rgb(39, 175, 39);
+}
+
+
+.input-box input:focus {
+    border-color: #eca217;
+	background: #fff;
+}
+.input-box .password_title {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+form .input-box {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+
+
+
 
 @media screen and (max-width: 768px) {
 	
