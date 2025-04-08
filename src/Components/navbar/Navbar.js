@@ -6,15 +6,11 @@ import { IoStatsChartOutline, IoSettingsOutline } from "react-icons/io5";
 import { CiMoneyBill } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
-import ForbiddenContent from "../forbidden/Forbedden";
 
 
-const Navbar = () => {
-
-    const userData = JSON.parse(window.localStorage.getItem("userData"))
-	const isLogged = window.localStorage.getItem("isLogged")
-
-    const content = (isLogged == null || isLogged == "0" ? "" :
+const Navbar = () =>{
+    return(
+    <>
         <aside className="sidebar">
             <div className="sidebar-header">
                 <img src="images/logo.png" alt="logo" />
@@ -57,11 +53,7 @@ const Navbar = () => {
                 <Link to="" className="link"><span className="icon"><IoSettingsOutline className="icons" /></span>Ustawienia</Link>
             </li>
             <li>
-                <Link to="/" onClick={() => {
-                    window.localStorage.setItem("userData", JSON.stringify({data: null}))
-                    window.localStorage.setItem("isLogged", 0)
-                    
-                    }} className="link"><span className="icon"><GrPowerShutdown className="icons" /></span>Wyloguj</Link>
+                <Link to="" className="link"><span className="icon"><GrPowerShutdown className="icons" /></span>Wyloguj</Link>
             </li>
             </ul>
             <div className="user-account">
@@ -71,13 +63,8 @@ const Navbar = () => {
                 </div>
             </div>
             </div>
-        </aside>) 
-
-
-    return(
-        <>
-            {content}
-        </>     
+        </aside>
+    </>
     )
 }
 export default Navbar
