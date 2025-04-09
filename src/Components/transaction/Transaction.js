@@ -1,6 +1,9 @@
 import React from "react";
 import './transaction-style.css'
 import ForbiddenContent from "../forbidden/Forbedden";
+import HistoryItem from "../histroy/HistoryItem";
+import { IoMdAdd } from "react-icons/io";
+
 
 const Transaction = () =>{
     const userData = JSON.parse(window.localStorage.getItem("userData"))
@@ -42,15 +45,26 @@ const Transaction = () =>{
 							</tr>
 							<tr className="transaction-tr">
 								<th>
-									<input type="text"/>
+								<select>
+										<option value={1}>Jedzenie</option>
+										<option value={2}>Transport</option>
+										<option value={3}>Rozrywka</option>
+										<option value={4}>Wynagrodzenie</option>
+										<option value={5}>Zakupy</option>
+										<option value={6}>Inwestycje</option>
+										<option value={7}>Subskrypcje</option>
+										<option value={8}>Edukacja</option>
+										<option value={9}>Zdrowie</option>
+										<option value={10}>Oszczędności</option>
+									</select>
 								</th>
 								<th>
 									<input type="date"/>
 								</th>
 								<th>
 									<select>
-										<option>Przychody</option>
-										<option>Wydatki</option>
+										<option value="Przychody">Przychody</option>
+										<option value="Wydatki">Wydatki</option>
 									</select>
 								</th>
 								<th>
@@ -59,38 +73,15 @@ const Transaction = () =>{
 								<th>
 									<input type="number" />
 								</th>
-								<th><td><button className="add-record">Dodaj</button></td></th>
+								<th><button className="add-record"><IoMdAdd /></button></th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2024</td>
-								<td><span className="status incom">Przychody</span></td>
-								<td>Wypłata</td>
-								<td>2500 zł</td>
-								<td><button className="delete-record">Usuń</button></td>
-							</tr>
-							<tr>
-								<td>
-									<p>John Doe</p>
-								</td>
-								<td>02-10-2024</td>
-								<td><span className="status spend">Wydatki</span></td>
-								<td>Karma dla kota</td>
-								<td>70 zł</td>
-								<td><button className="delete-record">Usuń</button></td>
-							</tr>
-						</tbody>
+						<HistoryItem/>
 					</table>
 				</div>
 				</div>
 		</main>
 	</section>) 
-
-
 
     return(<>
         {content}    

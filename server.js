@@ -27,6 +27,7 @@ app.use(express.json())
 const salt = new Uint8Array(16);
 crypto.getRandomValues(salt);
 //Endpointy
+
 app.post('/register', (req, res)=>{
   const {email, password} = req.body
   let sql = "SELECT * FROM users WHERE email = ?"
@@ -68,6 +69,22 @@ app.post('/login', (req, res)=>{
     })
   })
 })
+app.post('/history', (req, res)=>{
+  
+  const userId = req.body.data.data[0].id
+  let sql = "SELECT transactions.*, categories.name FROM transactions INNER JOIN categories ON transactions.category_id = categories.id WHERE transactions.user_id = ? "
+  connection.query(sql, [userId], (err, result) =>{
+    if([...result].length == 0){
+      res.json({info: "Brak transakcji"})
+      return
+    }
+
+    res.json(result)
+
+  })
+})
+
+
 
 //Nadłsuchiwanie portu 3001
 app.listen(port, ()=>{

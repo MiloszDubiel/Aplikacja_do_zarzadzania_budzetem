@@ -355,25 +355,20 @@ li {
 .transaction-tr > th{
 	padding: 0 !important;
 }
-.delete-record, .add-record{
+.add-record{
 	height: 30px;
-	width: 50px;
+	width: 30px;
 	border: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
 	border-radius: 50px;
-	background: var(--red);
+	background:  rgb(45, 158, 45);;
 	color: var(--light);
 	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
 	transition: 0.2s;
-}
-.delete-record:hover{
-	background: #d8332d
-}
-.add-record{
-	background: rgb(45, 158, 45);
+	font-size: 18px;
 }
 .add-record:hover{
 	background: rgb(39, 175, 39);
