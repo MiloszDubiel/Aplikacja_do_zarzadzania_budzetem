@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 const Navbar = () =>{
 
     const isLogged = window.localStorage.getItem("isLogged")
+    const userData = JSON.parse(window.localStorage.getItem("userData"))
 
 
 
@@ -67,7 +68,7 @@ const Navbar = () =>{
         <div className="user-account">
         <div className="user-profile">
             <div className="user-detail">
-            <h3>Eva Murphy</h3>
+            <h3>{userData.data[0].name + " "+ userData.data[0].lastname}</h3>
             </div>
         </div>
         </div>

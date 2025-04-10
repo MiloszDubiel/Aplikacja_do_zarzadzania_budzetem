@@ -17,8 +17,6 @@ const HistoryItem = () => {
 		})
 	},[])
 
-	console.log(historyData)
-
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);

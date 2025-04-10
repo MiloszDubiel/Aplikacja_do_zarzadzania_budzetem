@@ -4,8 +4,8 @@ USE FinanceApp;
 -- Tabela użytkowników
 CREATE TABLE Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NULL,
-    lastname VARCHAR(50) NULL,
+    name VARCHAR(50) DEFAULT "User",
+    lastname VARCHAR(50) DEFAULT " ",
     email VARCHAR(100) UNIQUE NOT NULL,
     balance DECIMAL(15,2) NOT NULL DEFAULT 0.00,
     password VARCHAR(255) NOT NULL,
@@ -31,6 +31,27 @@ CREATE TABLE Transactions (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
+
+DELIMITER //
+
+CREATE TRIGGER update_balance_after_transaction
+AFTER INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+  IF NEW.type = 'Przychody' THEN
+    UPDATE Users
+    SET balance = balance + NEW.amount
+    WHERE id = NEW.user_id;
+
+  ELSEIF NEW.type = 'Wydatki' THEN
+    UPDATE Users
+    SET balance = balance - NEW.amount
+    WHERE id = NEW.user_id;
+  END IF;
+END;
+//
+
+DELIMITER ;
 
 INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `balance`, `password`, `created_at`) VALUES
 (7, NULL, NULL, 'miloszdubiel02@wp.pl', 0.00 ,'$2b$10$xRiatImjAiIMW2Fru85kru/7xOlols316AJzSGtw9/RuZoGkRgqWS', '2025-04-04 12:52:47'),

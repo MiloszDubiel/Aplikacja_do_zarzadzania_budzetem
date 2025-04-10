@@ -7,6 +7,13 @@ const Dashboard = () =>{
 	const userData = JSON.parse(window.localStorage.getItem("userData"))
 	const isLogged = window.localStorage.getItem("isLogged")
 
+	const spends = [...userData.data].filter(element => element.type == 'Wydatki')
+	const incoms = [...userData.data].filter(element => element.type == 'Przychody')
+	
+	const spendedMoney = spends.reduce((x, {amount}) => x + amount, 0)
+	const incomMoney = incoms.reduce((x, {amount}) => x + amount, 0)
+
+
 	const content = (isLogged == null || isLogged == "0" ? <ForbiddenContent/> : <section id="content">
 		<main>
 			<div className="head-title">
@@ -30,21 +37,21 @@ const Dashboard = () =>{
 					<i className='bx bxs-calendar-check' ></i>
 					<span className="text">
 						<h3>Stan konta</h3>
-						<p>2300 zł</p>
+						<p>{userData.data[0].balance} zł</p>
 					</span>
 				</li>
 				<li>
 					<i className='bx bxs-group' ></i>
 					<span className="text">
 						<h3>Wydatki</h3>
-						<p>1000 zł</p>
+						<p>{spendedMoney} zł</p>
 					</span>
 				</li>
 				<li>
 					<i className='bx bxs-dollar-circle' ></i>
 					<span className="text">
 						<h3>Przychody</h3>
-						<p>2000 zł</p>
+						<p>{incomMoney} zł</p>
 					</span>
 				</li>
 			</ul>
@@ -94,7 +101,7 @@ const Dashboard = () =>{
 							<img src="images/profile.jpg" alt="" className="profile-pic"/>
 						</div>
 						<div className="data">
-							<h2>Miłosz Dubiel</h2>
+							<h2>{userData.data[0].name + " "+ userData.data[0].lastname}</h2>
 						</div>
 						<div className="row">
 							<div className="user-info">
@@ -108,8 +115,7 @@ const Dashboard = () =>{
 			
 						</div>
 						<div className="buttons">
-							<a href="#" className="btn">Zmień email</a>
-							<a href="#" className="btn">Zmień hasło</a>
+							<a href="#" className="btn">Edytuj konto</a>
 						</div>
 					</div>
 				</div>

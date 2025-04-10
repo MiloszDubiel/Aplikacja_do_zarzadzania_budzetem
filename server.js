@@ -53,7 +53,7 @@ app.post('/register', (req, res)=>{
 app.post('/login', (req, res)=>{
   const {email, password} = req.body
 
-  let sql = "SELECT * FROM users WHERE email = ?"
+  let sql = "SELECT * FROM users INNER JOIN transactions ON users.id = transactions.user_id WHERE email = ?"
 
   connection.query(sql, [email], (err, result) =>{
     if([...result].length == 0){

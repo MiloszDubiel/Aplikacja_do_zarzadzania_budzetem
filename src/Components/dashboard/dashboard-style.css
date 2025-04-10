@@ -263,6 +263,8 @@ li {
 	display: flex;
 	align-items: center;
 	margin-top: 30px;
+	
+	
   }
   .buttons .btn{
 	color: #fff;
@@ -273,6 +275,7 @@ li {
 	font-size: 18px;
 	white-space: nowrap;
 	background: var(--orange);
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
   }
 
 @media screen and (max-width: 768px) {
