@@ -70,19 +70,26 @@ app.post('/login', (req, res)=>{
   })
 })
 app.post('/history', (req, res)=>{
-  
-  const userId = req.body.data.data[0].id
+  const userId = req.body.data.data[0].user_id
   let sql = "SELECT transactions.*, categories.name FROM transactions INNER JOIN categories ON transactions.category_id = categories.id WHERE transactions.user_id = ? "
   connection.query(sql, [userId], (err, result) =>{
     if([...result].length == 0){
-      res.json({info: "Brak transakcji"})
+      console.log(result)
+      res.json({info: ["Brak transakcji"]})
       return
     }
-
     res.json(result)
 
   })
 })
+app.post('/delete-record', (req, res)=>{
+  const {userID, transactionID} = req.body
+  let sql = "DELETE FROM transactions WHERE id = ? AND user_id = ? "
+  connection.query(sql, [transactionID, userID], (err, result) =>{ 
+    res.json(result)
+  })
+})
+
 
 
 

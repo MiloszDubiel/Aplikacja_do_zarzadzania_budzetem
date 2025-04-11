@@ -1,7 +1,8 @@
 import React, { use } from "react";
 import './dashboard-style.css'
 import ForbiddenContent from "../forbidden/Forbedden";
-
+import { TbMoneybag } from "react-icons/tb";
+import { HiArrowSmallUp, HiArrowSmallDown } from "react-icons/hi2";
 
 const Dashboard = () =>{
 	const userData = JSON.parse(window.localStorage.getItem("userData"))
@@ -34,21 +35,21 @@ const Dashboard = () =>{
 
 			<ul className="box-info">
 				<li>
-					<i className='bx bxs-calendar-check' ></i>
+					<i className='bx bxs-calendar-check' ><TbMoneybag /></i>
 					<span className="text">
 						<h3>Stan konta</h3>
 						<p>{userData.data[0].balance} zł</p>
 					</span>
 				</li>
 				<li>
-					<i className='bx bxs-group' ></i>
+					<i className='bx bxs-group' ><HiArrowSmallUp /></i>
 					<span className="text">
 						<h3>Wydatki</h3>
 						<p>{spendedMoney} zł</p>
 					</span>
 				</li>
 				<li>
-					<i className='bx bxs-dollar-circle' ></i>
+					<i className='bx bxs-dollar-circle' ><HiArrowSmallDown /></i>
 					<span className="text">
 						<h3>Przychody</h3>
 						<p>{incomMoney} zł</p>

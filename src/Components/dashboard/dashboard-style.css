@@ -108,26 +108,8 @@ li {
 	justify-content: center;
 	align-items: center;
 }
-#content main .box-info li:nth-child(1) .bx {
-	background: var(--orange);
-	color: var(--blue);
-}
-#content main .box-info li:nth-child(2) .bx {
-	background: rgb(247, 205, 22);
-	color: var(--yellow);
-}
-#content main .box-info li:nth-child(3) .bx {
-	background: rgb(247, 205, 22);
-	color: var(--orange);
-}
-#content main .box-info li .text h3 {
-	font-size: 24px;
-	font-weight: 600;
-	color: var(--dark);
-}
-#content main .box-info li .text p {
-	color: var(--dark);	
-}
+
+
 
 
 
