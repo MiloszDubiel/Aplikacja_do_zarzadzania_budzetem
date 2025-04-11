@@ -1,15 +1,49 @@
-import React from "react";
+import React, { useRef} from "react";
 import './transaction-style.css'
 import ForbiddenContent from "../forbidden/Forbedden";
 import HistoryItem from "../histroy/HistoryItem";
 import { IoMdAdd } from "react-icons/io";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom'
 
 
 const Transaction = () =>{
     const userData = JSON.parse(window.localStorage.getItem("userData"))
 	const isLogged = window.localStorage.getItem("isLogged")
 
-    const content = (isLogged == null || isLogged == "0" ?  <ForbiddenContent/> :
+    
+	const categoryInput = useRef(null)
+	const dateInput = useRef(null)
+	const typeInput = useRef(null)
+	const descInput = useRef(null)
+	const costInput = useRef(null)
+
+	const naviagate = useNavigate()
+	const handleAddingRecord = () => {
+		const category = categoryInput.current.value.trim()
+		const date = dateInput.current.value.trim()
+		const type = typeInput.current.value.trim()
+		const description = descInput.current.value.trim()
+		const cost = costInput.current.value.trim()
+		console.log(!date.length, !description.length, !cost.length, isNaN(cost))
+
+		if(!date.length || !description.length || !cost.length || isNaN(cost))
+			alert("Niepoprawne dane")
+		else{
+			axios.post('http://localhost:3001/insert-record', {
+				userData: JSON.parse(window.localStorage.getItem('userData')),
+				category,
+				date,
+				type,
+				description,
+				cost
+			})	
+			window.location.reload(); 
+		}
+			
+	}
+	
+	const content = (isLogged == null || isLogged == "0" ?  <ForbiddenContent/> :
         <section id="content">
 		<main>
 			<div className="head-title">
@@ -45,7 +79,7 @@ const Transaction = () =>{
 							</tr>
 							<tr className="transaction-tr">
 								<th>
-								<select>
+								<select ref={categoryInput}>
 										<option value={1}>Jedzenie</option>
 										<option value={2}>Transport</option>
 										<option value={3}>Rozrywka</option>
@@ -59,21 +93,21 @@ const Transaction = () =>{
 									</select>
 								</th>
 								<th>
-									<input type="date"/>
+									<input type="date" ref={dateInput} />
 								</th>
 								<th>
-									<select>
+									<select ref={typeInput}>
 										<option value="Przychody">Przychody</option>
 										<option value="Wydatki">Wydatki</option>
 									</select>
 								</th>
 								<th>
-									<input type="text"/>
+									<input type="text" ref={descInput}/>
 								</th>
 								<th>
-									<input type="number" />
+									<input type="number" ref={costInput}/>
 								</th>
-								<th><button className="add-record"><IoMdAdd /></button></th>
+								<th><button className="add-record" onClick={handleAddingRecord}><IoMdAdd /></button></th>
 							</tr>
 						</thead>
 						<HistoryItem/>

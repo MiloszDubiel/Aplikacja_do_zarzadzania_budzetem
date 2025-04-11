@@ -90,6 +90,15 @@ app.post('/delete-record', (req, res)=>{
   })
 })
 
+app.post('/insert-record', (req, res)=>{
+  const {userData, category, date, type, description, cost} = req.body
+  const userID = userData.data[0].user_id;
+  let sql = "INSERT INTO `transactions` (`user_id`, `category_id`, `amount`, `transaction_date`, `description`, `type` ) VALUES (?, ?, ?, ?, ?, ?)"
+  connection.query(sql, [userID, category, cost, date, description, type], (err, result) =>{ 
+     res.json(result)
+  })
+})
+
 
 
 
