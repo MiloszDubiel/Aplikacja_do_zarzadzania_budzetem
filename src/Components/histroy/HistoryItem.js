@@ -5,19 +5,18 @@ import TransactionCell from "../transaction/TransactionCell";
 
 
 
-const HistoryItem = () => {
+const HistoryItem = ({isActive}) => {
 
 	
 	let [historyData, setHistoryData] = useState([" "])
 	
-
 	useEffect(() => {
 		axios.post('http://localhost:3001/history', {
 		  data: JSON.parse(window.localStorage.getItem('userData'))
 		}).then(res => {
 		  setHistoryData(res.data)
 		})
-	}, [])
+	}, [isActive])
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString)

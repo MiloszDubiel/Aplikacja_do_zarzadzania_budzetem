@@ -2,8 +2,7 @@ import React from "react";
 import { IoIosRemove } from "react-icons/io";
 const TransactionCell = ({el, deleteRecord, formatDate}) =>{
     
-const tableCells = el.map(el =>{
-
+const tableCells = typeof el.map != 'function' ? <tr><td colSpan={6} style={{textAlign: "center"}}>Brak transakcji</td></tr>:  el.map(el =>{
     return (
         <tr>
             <td>
@@ -18,8 +17,9 @@ const tableCells = el.map(el =>{
             <td><button className="delete-record" onClick={()=> deleteRecord(el)}><IoIosRemove /></button></td>
         </tr>
     )
-    })
-    return tableCells
+})
+    
+return tableCells
 
 }
 

@@ -1,4 +1,4 @@
-import React, { useRef} from "react";
+import React, { useDebugValue, useEffect, useRef, useState} from "react";
 import './transaction-style.css'
 import ForbiddenContent from "../forbidden/Forbedden";
 import HistoryItem from "../histroy/HistoryItem";
@@ -18,27 +18,44 @@ const Transaction = () =>{
 	const descInput = useRef(null)
 	const costInput = useRef(null)
 
-	const naviagate = useNavigate()
+	let [isActive, setIsActive] = useState(false)
+
+	useEffect(()=>{
+		setIsActive(false)
+		setCurrentDate()
+
+	})
+
+
+	const setCurrentDate = () =>{
+		const date = new Date()
+		const day = String(date.getDate()).padStart(2, '0')      
+		const month = String(date.getMonth() + 1).padStart(2, '0')
+		const year = date.getFullYear();                           
+	  
+
+		dateInput.current.value =  `${year}-${month}-${day}`
+	}
+
 	const handleAddingRecord = () => {
 		const category = categoryInput.current.value.trim()
 		const date = dateInput.current.value.trim()
 		const type = typeInput.current.value.trim()
 		const description = descInput.current.value.trim()
 		const cost = costInput.current.value.trim()
-		console.log(!date.length, !description.length, !cost.length, isNaN(cost))
 
 		if(!date.length || !description.length || !cost.length || isNaN(cost))
 			alert("Niepoprawne dane")
 		else{
 			axios.post('http://localhost:3001/insert-record', {
-				userData: JSON.parse(window.localStorage.getItem('userData')),
+				userData: userData,
 				category,
 				date,
 				type,
 				description,
 				cost
 			})	
-			window.location.reload(); 
+			setIsActive(true)
 		}
 			
 	}
@@ -110,7 +127,7 @@ const Transaction = () =>{
 								<th><button className="add-record" onClick={handleAddingRecord}><IoMdAdd /></button></th>
 							</tr>
 						</thead>
-						<HistoryItem/>
+						<HistoryItem isActive={isActive}/>
 					</table>
 				</div>
 				</div>
