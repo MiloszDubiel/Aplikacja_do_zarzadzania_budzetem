@@ -52,14 +52,16 @@ app.post('/register', (req, res)=>{
 
 app.post('/login', (req, res)=>{
   const {email, password} = req.body
-
-  let sql = "SELECT * FROM users INNER JOIN transactions ON users.id = transactions.user_id WHERE email = ?"
+  console.log(email, password)
+  let sql = "SELECT users.id, users.name, users.password, users.lastname, users.email, users.balance, users.created_at, transactions.user_id FROM users LEFT JOIN transactions ON users.id = transactions.user_id WHERE email = ?"
 
   connection.query(sql, [email], (err, result) =>{
     if([...result].length == 0){
+      console.log(result)
       res.json({info: "Konto nie istnieje"})
       return
     }
+
     let hash = result[0].password
     bcrypt.compare(password, hash).then(resp =>{
       if(resp)
@@ -70,11 +72,10 @@ app.post('/login', (req, res)=>{
   })
 })
 app.post('/history', (req, res)=>{
-  const userId = req.body.data.data[0].user_id
+  const userId = req.body.data.data[0].id
   let sql = "SELECT transactions.*, categories.name FROM transactions INNER JOIN categories ON transactions.category_id = categories.id WHERE transactions.user_id = ? "
   connection.query(sql, [userId], (err, result) =>{
     if([...result].length == 0){
-      console.log(result)
       res.json({info: ["Brak transakcji"]})
       return
     }
@@ -92,15 +93,12 @@ app.post('/delete-record', (req, res)=>{
 
 app.post('/insert-record', (req, res)=>{
   const {userData, category, date, type, description, cost} = req.body
-  const userID = userData.data[0].user_id;
+  const userID = userData.data[0].id;
   let sql = "INSERT INTO `transactions` (`user_id`, `category_id`, `amount`, `transaction_date`, `description`, `type` ) VALUES (?, ?, ?, ?, ?, ?)"
   connection.query(sql, [userID, category, cost, date, description, type], (err, result) =>{ 
      res.json(result)
   })
 })
-
-
-
 
 //Nadłsuchiwanie portu 3001
 app.listen(port, ()=>{

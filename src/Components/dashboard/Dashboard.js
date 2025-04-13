@@ -8,13 +8,10 @@ const Dashboard = () =>{
 	const userData = JSON.parse(window.localStorage.getItem("userData"))
 	const isLogged = window.localStorage.getItem("isLogged")
 
-	const spends = [...userData.data].filter(element => element.type == 'Wydatki')
-	const incoms = [...userData.data].filter(element => element.type == 'Przychody')
+	const spendedMoney = [...userData.data].filter(element => element.type === 'Wydatki').reduce((x, {amount}) => x + amount, 0)
+	const incomMoney = [...userData.data].filter(element => element.type === 'Przychody').reduce((x, {amount}) => x + amount, 0)
 	
-	const spendedMoney = spends.reduce((x, {amount}) => x + amount, 0)
-	const incomMoney = incoms.reduce((x, {amount}) => x + amount, 0)
-
-
+	console.log(userData)
 	const content = (isLogged == null || isLogged == "0" ? <ForbiddenContent/> : <section id="content">
 		<main>
 			<div className="head-title">
@@ -111,7 +108,7 @@ const Dashboard = () =>{
 							</div>
 							<div className="user-info">
 								<h3>Data dołączenia: </h3>
-								<span>{ userData == null ? "" : userData.data[0].created_at.substring(0, userData.data[0].created_at.indexOf('T')) }</span>
+								<span>{ userData === null ? "" : userData.data[0].created_at.substring(0, userData.data[0].created_at.indexOf('T')) }</span>
 							</div>
 			
 						</div>

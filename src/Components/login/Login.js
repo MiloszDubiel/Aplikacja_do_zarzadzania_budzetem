@@ -8,7 +8,10 @@ import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
-    
+    window.addEventListener('unload', ()=>{
+        alert("dupa")
+    })
+
     let email = useRef(null)
     let passoword = useRef(null)
     let emailError = useRef(null)
@@ -46,6 +49,7 @@ const Login = () => {
                 setTimeout( () => naviagate('/dashboard'), 1000)
                 infoDiv.current.style.display = 'block'
                 infoDiv.current.textContent = res.data.info
+                console.log(res.data)
             } 
         })
     },[userData])
