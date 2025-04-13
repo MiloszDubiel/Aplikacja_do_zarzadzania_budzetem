@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/login/Login";
 import Register from "./Components/register/Register";
@@ -8,6 +8,18 @@ import Transaction from "./Components/transaction/Transaction";
 
 
 const Main = () => {
+    // useEffect(() => {
+    //     window.addEventListener('beforeunload', alertUser)
+    //     return () => {
+    //       window.removeEventListener('beforeunload', alertUser)
+    //     }
+    // }, [])
+
+    // const alertUser = e => {
+    //     e.preventDefault()
+    //     e.returnValue = ''
+    // }
+
     return(
         <BrowserRouter>
             <Routes>

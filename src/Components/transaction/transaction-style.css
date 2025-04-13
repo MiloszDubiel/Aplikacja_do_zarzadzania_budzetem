@@ -225,12 +225,10 @@ li {
 }
 
 .transaction-tr input{
+
     width: 50%;
     height: 30px;
-	border-top: 0;
-	border-left: 0;
-	border-right: 0 ;
-	border-bottom: 1px var(--grey) solid ;
+	border: none;
     outline: none;
     background: #F8F8FB;
     font-size: 14px;
@@ -260,7 +258,7 @@ li {
 }
 
 .transaction-tr > th{
-	padding: 0 !important;
+	padding-bottom: 10px
 }
 .add-record{
 	height: 30px;
@@ -271,14 +269,14 @@ li {
 	align-items: center;
 	cursor: pointer;
 	border-radius: 50px;
-	background:  rgb(45, 158, 45);;
+	background:  #eca217;
 	color: var(--light);
 	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
 	transition: 0.2s;
 	font-size: 18px;
 }
 .add-record:hover{
-	background: rgb(39, 175, 39);
+	background: #e2a431;
 }
 
 
@@ -297,8 +295,59 @@ form .input-box {
 }
 
 
+.container-popup{
+    width: 100%;
+    height: 100%;
+	display: none;
+	position: fixed;
+	z-index: 1111;
+
+}
+.open-popup-window{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background:  #99999956;
+}
 
 
+.popup{
+    width: 400px;
+    background: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    text-align: center;
+    padding: 0 30px 60px;
+    color: #333;
+    opacity: 0;
+	position: fixed;
+	transition-duration: 1s;
+}
+
+.open-popup{
+    opacity: 1;
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+.popup button{
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background-color: #eca217;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 50px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+	cursor: pointer;
+}
 
 @media screen and (max-width: 768px) {
 	

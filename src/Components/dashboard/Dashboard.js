@@ -8,14 +8,11 @@ const Dashboard = () =>{
 	const userData = JSON.parse(window.localStorage.getItem("userData"))
 	const isLogged = window.localStorage.getItem("isLogged")
 
-	const spends = [...userData.data].filter(element => element.type == 'Wydatki')
-	const incoms = [...userData.data].filter(element => element.type == 'Przychody')
 	
-	const spendedMoney = spends.reduce((x, {amount}) => x + amount, 0)
-	const incomMoney = incoms.reduce((x, {amount}) => x + amount, 0)
-
-
-	const content = (isLogged == null || isLogged == "0" ? <ForbiddenContent/> : <section id="content">
+	const spentMoney = userData != null ? ' ':  [...userData.data].filter(element => element.type === 'Wydatki').reduce((x, {amount}) => x + amount, 0)
+	const incomMoney =  userData != null ? ' ': [...userData.data].filter(element => element.type === 'Przychody').reduce((x, {amount}) => x + amount, 0)
+	
+	const content = (!userData  ||  !isLogged ? <ForbiddenContent/> : <section id="content">
 		<main>
 			<div className="head-title">
 				<div className="left">
@@ -45,7 +42,7 @@ const Dashboard = () =>{
 					<i className='bx bxs-group' ><HiArrowSmallUp /></i>
 					<span className="text">
 						<h3>Wydatki</h3>
-						<p>{spendedMoney} zł</p>
+						<p>{spentMoney} zł</p>
 					</span>
 				</li>
 				<li>
@@ -111,7 +108,7 @@ const Dashboard = () =>{
 							</div>
 							<div className="user-info">
 								<h3>Data dołączenia: </h3>
-								<span>{ userData == null ? "" : userData.data[0].created_at.substring(0, userData.data[0].created_at.indexOf('T')) }</span>
+								<span>{ userData === null ? "" : userData.data[0].created_at.substring(0, userData.data[0].created_at.indexOf('T')) }</span>
 							</div>
 			
 						</div>

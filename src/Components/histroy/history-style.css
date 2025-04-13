@@ -7,12 +7,12 @@
 	align-items: center;
 	cursor: pointer;
 	border-radius: 50px;
-	background: var(--red);
+	background: #FD7238;
 	color: var(--light);
 	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
 	transition: 0.2s;
     font-size: 18px;
 }
 .delete-record:hover{
-	background: #d8332d
+	background: #fd7940
 }

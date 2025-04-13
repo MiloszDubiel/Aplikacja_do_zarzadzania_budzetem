@@ -53,6 +53,32 @@ END;
 
 DELIMITER ;
 
+
+
+DELIMITER //
+
+CREATE TRIGGER update_balance_after_delete
+AFTER DELETE ON Transactions
+FOR EACH ROW
+BEGIN
+  IF OLD.type = 'Przychody' THEN
+    UPDATE Users
+    SET balance = balance - OLD.amount
+    WHERE id = OLD.user_id;
+
+  ELSEIF OLD.type = 'Wydatki' THEN
+    UPDATE Users
+    SET balance = balance + OLD.amount
+    WHERE id = OLD.user_id;
+  END IF;
+END;
+//
+
+DELIMITER ;
+
+
+
+
 INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `balance`, `password`, `created_at`) VALUES
 (7, NULL, NULL, 'miloszdubiel02@wp.pl', 0.00 ,'$2b$10$xRiatImjAiIMW2Fru85kru/7xOlols316AJzSGtw9/RuZoGkRgqWS', '2025-04-04 12:52:47'),
 (8, NULL, NULL, 'admin@wp.pl', 0.00,'$2b$10$PckJ8HaUrpdvp37uO8vhB.ZfXPlidiSalkHADkwehIExcBJcVyeT.', '2025-04-04 14:46:19'),

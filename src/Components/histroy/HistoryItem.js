@@ -15,6 +15,7 @@ const HistoryItem = ({isActive}) => {
 		  data: JSON.parse(window.localStorage.getItem('userData'))
 		}).then(res => {
 		  setHistoryData(res.data)
+		  console.log(res.data)
 		})
 	}, [isActive])
 
