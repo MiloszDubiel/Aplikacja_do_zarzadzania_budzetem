@@ -1,8 +1,8 @@
 import React from "react";
 import { IoIosRemove } from "react-icons/io";
-const TransactionCell = ({el, deleteRecord, formatDate}) =>{
+const TransactionCell = ({history, deleteRecord, formatDate, sortBy}) =>{
     
-const tableCells = typeof el.map != 'function' ? <tr><td colSpan={6} style={{textAlign: "center"}}>Brak transakcji</td></tr>:  el.map(el =>{
+const tableCells = typeof history.map != 'function' ? <tr><td colSpan={6} style={{textAlign: "center"}}>Brak transakcji</td></tr>:  history.map(el =>{
     return (
         <tr>
             <td>

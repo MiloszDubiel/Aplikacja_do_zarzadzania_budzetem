@@ -9,6 +9,7 @@ CREATE TABLE Users (
     email VARCHAR(100) UNIQUE NOT NULL,
     balance DECIMAL(15,2) NOT NULL DEFAULT 0.00,
     password VARCHAR(255) NOT NULL,
+    profile_picture 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

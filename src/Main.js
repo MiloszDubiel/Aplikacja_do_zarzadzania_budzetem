@@ -8,17 +8,16 @@ import Transaction from "./Components/transaction/Transaction";
 
 
 const Main = () => {
-    // useEffect(() => {
-    //     window.addEventListener('beforeunload', alertUser)
-    //     return () => {
-    //       window.removeEventListener('beforeunload', alertUser)
-    //     }
-    // }, [])
+    useEffect(() => {
+        window.addEventListener('beforeunload', alertUser)
+        return () => {
+          window.removeEventListener('beforeunload', alertUser)
+        }
+    }, [])
 
-    // const alertUser = e => {
-    //     e.preventDefault()
-    //     e.returnValue = ''
-    // }
+    const alertUser = e => {
+        window.localStorage.setItem("isLogged", 0)
+    }
 
     return(
         <BrowserRouter>

@@ -53,7 +53,7 @@ app.post('/register', (req, res)=>{
 app.post('/login', (req, res)=>{
   const {email, password} = req.body
   console.log(email, password)
-  let sql = "SELECT users.id, users.name, users.password, users.lastname, users.email, users.balance, users.created_at, transactions.user_id FROM users LEFT JOIN transactions ON users.id = transactions.user_id WHERE email = ?"
+  let sql = "SELECT users.id, users.name, users.password, users.lastname, users.email, users.balance, users.profile_picture, users.created_at, transactions.user_id FROM users LEFT JOIN transactions ON users.id = transactions.user_id WHERE email = ?"
 
   connection.query(sql, [email], (err, result) =>{
     if([...result].length == 0){
@@ -72,9 +72,10 @@ app.post('/login', (req, res)=>{
   })
 })
 app.post('/history', (req, res)=>{
-  const userId = req.body.data.data[0].id
+  
+  const {userID} = req.body
   let sql = "SELECT transactions.*, categories.name FROM transactions INNER JOIN categories ON transactions.category_id = categories.id WHERE transactions.user_id = ? "
-  connection.query(sql, [userId], (err, result) =>{
+  connection.query(sql, [userID], (err, result) =>{
     if([...result].length == 0){
       res.json({info: ["Brak transakcji"]})
       return
@@ -92,13 +93,13 @@ app.post('/delete-record', (req, res)=>{
 })
 
 app.post('/insert-record', (req, res)=>{
-  const {userData, category, date, type, description, cost} = req.body
-  const userID = userData.data[0].id;
+  const {userID, category, date, type, description, cost} = req.body
   let sql = "INSERT INTO `transactions` (`user_id`, `category_id`, `amount`, `transaction_date`, `description`, `type` ) VALUES (?, ?, ?, ?, ?, ?)"
   connection.query(sql, [userID, category, cost, date, description, type], (err, result) =>{ 
      res.json(result)
   })
 })
+
 
 //Nadłsuchiwanie portu 3001
 app.listen(port, ()=>{

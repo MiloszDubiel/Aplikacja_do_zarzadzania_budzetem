@@ -8,22 +8,20 @@ import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
    
-
     let email = useRef(null)
     let passoword = useRef(null)
     let emailError = useRef(null)
     let passwordError = useRef(null)
     let infoDiv = useRef(null) 
+    let checkbox = useRef(null) 
 
     const naviagate = useNavigate()
     const [userData, setUserData] = useState(null)
     
-    
-    if(window.localStorage.getItem("isLogged") != "1")
-        window.localStorage.setItem("isLogged", 0)
-    
+
+
     useEffect(()=>{
-     if(window.localStorage.getItem("isLogged") != "0")
+     if(document.cookie.substr(6).length > 0)
         naviagate('/dashboard')
     })
 
@@ -41,15 +39,22 @@ const Login = () => {
                 infoDiv.current.style.display = 'block'
                 infoDiv.current.textContent = res.data.info
             }else {
-                window.localStorage.setItem("userData", JSON.stringify({data: res.data.data}))
-                window.localStorage.setItem("isLogged", 1)
+                window.localStorage.setItem("userData", JSON.stringify(...res.data.data))
                 setTimeout( () => naviagate('/dashboard'), 1000)
                 infoDiv.current.style.display = 'block'
                 infoDiv.current.textContent = res.data.info
-                console.log(res.data)
+                if(checkbox.current.checked)
+                    document.cookie = `email=${res.data.data[0].email};`
+                else{
+                    document.cookie = `email=;`
+                }
             } 
         })
     },[userData])
+
+
+
+
 
     const handleLogin = () =>{
         let emailValue = String(email.current.value.toString()).trim().toLowerCase()
@@ -91,6 +96,10 @@ const Login = () => {
                 </div>
                 <input type="password" id="password" placeholder="Wpisz hasło..." required ref={passoword}/>
                 <p className="error" id="email-error" ref={passwordError}></p>
+            </div>
+            <div className="checkbox_box">
+               <input type="checkbox" id="remember-me" ref={checkbox}/>
+               <label htmlFor="remember-me" >Zapamietaj mnie</label>
             </div>
             <button type="button" onClick={handleLogin}>Zaloguj się</button>
             <p className="sign_up">Nie masz konta?  
