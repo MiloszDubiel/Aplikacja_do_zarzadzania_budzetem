@@ -1,9 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
-import userDataSlicer from './slices/userData.slicer'
+import { configureStore } from "@reduxjs/toolkit";
+import userDataSlicer from "./slices/userData.slicer";
 
 export default configureStore({
-    reducer: {
-        userData: userDataSlicer
-    }
-})
-
+  reducer: {
+    userData: userDataSlicer,
+  },
+});

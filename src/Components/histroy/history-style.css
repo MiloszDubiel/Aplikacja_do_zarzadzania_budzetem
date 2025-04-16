@@ -1,18 +1,18 @@
-.delete-record{
-	height: 30px;
-	width: 30px;
-	border: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	border-radius: 50px;
-	background: #FD7238;
-	color: var(--light);
-	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
-	transition: 0.2s;
-    font-size: 18px;
+.delete-record {
+  height: 30px;
+  width: 30px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50px;
+  background: #fd7238;
+  color: var(--light);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+  transition: 0.2s;
+  font-size: 18px;
 }
-.delete-record:hover{
-	background: #fd7940
+.delete-record:hover {
+  background: #fd7940;
 }
