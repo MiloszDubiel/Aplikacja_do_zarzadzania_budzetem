@@ -6,7 +6,6 @@ import { IoStatsChartOutline, IoSettingsOutline } from "react-icons/io5";
 import { CiMoneyBill } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
-import ForbiddenContent from "../forbidden/Forbedden";
 
 
 const Navbar = () =>{
@@ -51,10 +50,10 @@ const Navbar = () =>{
                         <div className="menu-separator"></div>
                     </h4>
                     <li>
-                        <Link to="" className="link"><span className="icon"><MdOutlineAccountCircle className="icons"/></span>Profil</Link>
-                    </li>
-                    <li>
-                        <Link to="" className="link"><span className="icon"><IoSettingsOutline className="icons" /></span>Ustawienia</Link>
+                        <Link to="" className="link" onClick={()=>{
+                            document.querySelector('.user-setting').classList.add('show-setting')
+
+                        }}><span className="icon"><MdOutlineAccountCircle className="icons"/></span>Profil</Link>
                     </li>
                     <li>
                         <Link to="/" onClick={()=>{
@@ -73,7 +72,6 @@ const Navbar = () =>{
                     </div>
                 </aside>
                 :  " "
-
 
         return <>
             {content}

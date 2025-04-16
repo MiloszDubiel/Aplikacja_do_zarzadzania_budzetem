@@ -5,22 +5,18 @@ import Register from "./Components/register/Register";
 import Navbar from "./Components/navbar/Navbar"; 
 import Dashboard from "./Components/dashboard/Dashboard";
 import Transaction from "./Components/transaction/Transaction";
+import Profile from "./Components/profile/Profile";
+import './main-style.css'
 
 
 const Main = () => {
-    useEffect(() => {
-        window.addEventListener('beforeunload', alertUser)
-        return () => {
-          window.removeEventListener('beforeunload', alertUser)
-        }
-    }, [])
-
-    const alertUser = e => {
-        window.localStorage.setItem("isLogged", 0)
-    }
+    
 
     return(
         <BrowserRouter>
+            <div className="show-settings">
+                <Profile/>
+            </div>
             <Routes>
                 <Route path="/" element={<Login />} />       
             </Routes>
@@ -32,6 +28,9 @@ const Main = () => {
             </Routes>
             <Routes>
                 <Route path="/transaction" element={<div style={{display: "flex", width: 100+"%", height: 100+"%" }}> <Navbar /> <Transaction />  </div>} />
+            </Routes>
+            <Routes>
+                <Route path="/profile" element={<div style={{display: "flex", width: 100+"%", height: 100+"%" }}> <Navbar /> <Profile />  </div>} />
             </Routes>
 
         </BrowserRouter>
