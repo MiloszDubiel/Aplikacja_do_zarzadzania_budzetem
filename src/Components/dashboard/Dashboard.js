@@ -6,12 +6,15 @@ import { HiArrowSmallUp, HiArrowSmallDown } from "react-icons/hi2";
 import axios from "axios";
 import { IoSettingsOutline } from "react-icons/io5";
 import { formatDate } from "../histroy/HistoryItem";
+import { useNavigate } from "react-router-dom";
+import { IoMdAdd } from "react-icons/io";
 
 const Dashboard = () => {
   const userData = JSON.parse(window.localStorage.getItem("userData"));
   let emailFromCookie = document.cookie.substr(6);
   let [transactionsData, setTransactionsData] = useState([]);
-  
+  let navigation = useNavigate();
+
   useEffect(() => {
     axios
       .post("http://localhost:3001/history", {
@@ -36,31 +39,52 @@ const Dashboard = () => {
           .filter((element) => element.type === "Przychody")
           .reduce((x, { amount }) => x + amount, 0);
 
-  const history = 
-    typeof transactionsData.map != "function" 
-      ? <tr><td colSpan={5} style={{textAlign: "center"}}>Brak danych o historii</td></tr>
-      : transactionsData.map(el =>{
-        return <tr>
-                      <td>
-                        <p>{el.name}</p>
-                      </td>
-                      <td>{formatDate(el.transaction_date)}</td>
-                      <td>
-                        {el.type == "Wydatki" ? (
-                          <span className="status spend">{el.type}</span>
-                        ) : (
-                          <span className="status incom">{el.type}</span>
-                        )}
-                      </td>
-                      <td>{el.description}</td>
-                      <td>{el.amount}zł</td>
-        </tr>
-      })   
-
+  const history =
+    typeof transactionsData.map != "function" ? (
+      <tr className="table-dashboard">
+        <td
+          colSpan={5}
+          style={{ textAlign: "center", cursor: "pointer" }}
+          onClick={() => {
+            navigation("/transaction");
+          }}
+        >
+          Klikinj tutaj, aby dodać transakcje.
+        </td>
+      </tr>
+    ) : (
+      transactionsData.map((el) => {
+        return (
+          <tr>
+            <td>
+              <p>{el.name}</p>
+            </td>
+            <td>{formatDate(el.transaction_date)}</td>
+            <td>
+              {el.type == "Wydatki" ? (
+                <span className="status spend">{el.type}</span>
+              ) : (
+                <span className="status incom">{el.type}</span>
+              )}
+            </td>
+            <td>{el.description}</td>
+            <td>{el.amount}zł</td>
+          </tr>
+        );
+      })
+    );
 
   const content =
     emailFromCookie === userData.email || userData.email != undefined ? (
-      <section id="content">
+      <section
+        id="content"
+        onMouseUp={(event) => {
+          let element = document.querySelector(".popup-window");
+          if (event.target != element && event.target.parentNode != element) {
+            element.classList.remove("show-popup");
+          }
+        }}
+      >
         <main>
           <div className="head-title">
             <div className="left">
@@ -93,6 +117,23 @@ const Dashboard = () => {
                 <h3>Stan konta</h3>
                 <p>{userData.balance} zł</p>
               </span>
+              <buttom
+                className="add-button"
+                onClick={() => {
+                  document
+                    .querySelector(".popup-window")
+                    .classList.toggle("show-popup");
+                }}
+              >
+                <IoMdAdd />
+              </buttom>
+              <div className="popup-window">
+                <span style={{ textAlign: "center" }}>Podaj kwote</span>
+                <input type="number" id="amount" />
+                <button>
+                  <IoMdAdd />
+                </button>
+              </div>
             </li>
             <li>
               <i className="bx bxs-group">
@@ -121,7 +162,7 @@ const Dashboard = () => {
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>
-              <table>
+              <table className="table-dashboard">
                 <thead>
                   <tr>
                     <th>Kategoria</th>
@@ -131,9 +172,7 @@ const Dashboard = () => {
                     <th>Kwota</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {history}
-                </tbody>
+                <tbody>{history}</tbody>
               </table>
             </div>
             <div className="order">
@@ -144,8 +183,8 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="profile-card">
-              <div className="head" style={{width: 100+"%"}}>
-                <h3 >Profil</h3>
+              <div className="head" style={{ width: 100 + "%" }}>
+                <h3>Profil</h3>
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>

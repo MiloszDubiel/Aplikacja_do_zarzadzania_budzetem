@@ -63,13 +63,25 @@ const Transaction = () => {
   const content =
     emailFromCookie === userData.email || userData.email != undefined ? (
       <>
-        <div class="container-popup" ref={popUpContainer}>
+        <div
+          class="container-popup"
+          ref={popUpContainer}
+          onMouseUp={(event) => {
+            let element = document.querySelector("#popup");
+            let parent = document.querySelector(".container-popup");
+
+            if (event.target != element && event.target.parentNode != element) {
+              parent.classList.remove("open-popup-window");
+            }
+            console.log(element, parent);
+          }}
+        >
           <div class="popup" id="popup" ref={popUp}>
             <img src="img/tick.png" alt="" />
             <h2>Błąd</h2>
             <p>
-              Formularz dodawania wydatków i przychodów jest niepoprawny. Popraw błędne
-              pola.
+              Formularz dodawania wydatków i przychodów jest niepoprawny. Popraw
+              błędne pola.
             </p>
             <button
               type="button"
@@ -115,7 +127,7 @@ const Transaction = () => {
                     <option value="amount">Kwota</option>
                   </select>
                 </div>
-                <table>
+                <table className="table-transactions">
                   <thead>
                     <tr>
                       <td

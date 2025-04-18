@@ -74,38 +74,40 @@ li {
   flex-grow: 1;
   flex-basis: 500px;
 }
-#content main .transactions .order table {
+#content main .transactions .order .table-transactions {
   width: 100%;
   border-collapse: collapse;
 }
-#content main .transactions .order table th {
+#content main .transactions .order .table-transactions th {
   padding-bottom: 12px;
   font-size: 13px;
   text-align: left;
   border-bottom: 1px solid var(--grey);
 }
-#content main .transactions .order table td {
+#content main .transactions .order .table-transactions td {
   padding: 16px 0;
 }
 
-#content main .transactions .order table tbody tr:hover {
+#content main .transactions .order .table-transactions tbody tr:hover {
   background: var(--grey);
 }
-#content main .transactions .order table tr td .status {
+#content main .transactions .order .table-transactions tr td .status {
   font-size: 10px;
   padding: 6px 16px;
   color: var(--light);
   border-radius: 20px;
   font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
 }
-.status.incom {
+.table-transactions .status.incom {
   background: #eca217;
   width: 150px;
   height: 30px;
-  display: flex;
-  text-align: center;
 }
-.status.spend {
+.table-transactions .status.spend {
   background: rgb(247, 205, 22);
   height: 30px;
   width: 150px;
@@ -255,8 +257,8 @@ li {
   padding-bottom: 10px;
 }
 .add-record {
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   border: none;
   display: flex;
   justify-content: center;
