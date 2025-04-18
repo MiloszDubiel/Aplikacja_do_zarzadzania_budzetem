@@ -9,9 +9,9 @@ const TransactionCell = ({ history, deleteRecord, formatDate, sortBy }) => {
         </td>
       </tr>
     ) : (
-      history.map((el) => {
+      history.map((el, index) => {
         return (
-          <tr>
+          <tr style={{ animation: `fadeIn linear ${0.2 * index}s` }}>
             <td>
               <p>{el.name}</p>
             </td>

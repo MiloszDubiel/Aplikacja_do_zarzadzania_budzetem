@@ -184,11 +184,11 @@ td {
 .popup-window {
   display: none;
 }
+
 .show-popup {
   position: absolute;
   padding: 24px;
-  top: 125px;
-  left: 150px;
+  transform: translate(-230px, -105px);
   background: var(--light);
   border-radius: 20px;
   display: flex !important;
@@ -196,19 +196,39 @@ td {
   width: 500px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
   gap: 10px;
+  opacity: 1;
+  animation: fadeIn linear 0.1s;
 }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  100% {
+    opacity: 1;
+  }
+  0% {
+    opacity: 0;
+  }
+}
+
 .show-popup input[type="number"] {
   width: 60%;
   height: 30px;
-  border: 1px solid #dadaf2;
-  border-radius: 5px;
   outline: none;
   font-size: 17px;
-  padding: 0px 20px;
-  transition: 0.2s ease;
+  padding: 0px;
+  border: none;
+  background-color: inherit;
+  border-bottom: 1px solid var(--dark-grey);
 }
 .show-popup input[type="number"]:focus {
-  border: 1px solid #eca217;
+  border-bottom: 1px solid #eca217;
 }
 .show-popup span {
   width: 30%;
@@ -237,7 +257,6 @@ td {
   border-radius: 25px;
   padding: 30px;
   border: 1px solid #ffffff40;
-  height: 100%;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 .image {
@@ -297,7 +316,7 @@ td {
 }
 .add-button {
   position: absolute;
-  transform: translate(0px, -30px);
+  transform: translate(-235px, -40px);
   height: 20px;
   width: 20px;
   border-radius: 36px;
@@ -332,8 +351,16 @@ td {
   .profile-card {
     max-width: 100%;
   }
+}
+@media screen and (max-width: 1575px) {
   .profile-card {
     display: none !important;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  #content main .box-info {
+    grid-template-columns: 2fr;
   }
 }
 
@@ -362,16 +389,13 @@ td {
     background: var(--red);
   }
   #content main .box-info {
-    grid-template-columns: 1fr;
+    grid-template-columns: 3fr;
+    min-width: 400px;
   }
 
-  #content main .table-data .head {
+  .head, .order  {
     min-width: 420px;
   }
-  #content main .table-data .order table {
-    min-width: 420px;
-  }
-  #content main .table-data .todo .todo-list {
-    min-width: 420px;
-  }
+  
+  
 }

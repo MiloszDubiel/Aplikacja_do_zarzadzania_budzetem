@@ -40,7 +40,7 @@ const TransactionCellSorted = ({
 
   return history.map((el, i) => {
     return (
-      <tr key={i}>
+      <tr key={i} style={{ animation: `fadeIn linear ${0.2 * i}s` }}>
         <td>
           <p>{el.name}</p>
         </td>

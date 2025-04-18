@@ -53,9 +53,9 @@ const Dashboard = () => {
         </td>
       </tr>
     ) : (
-      transactionsData.map((el) => {
+      transactionsData.map((el, index) => {
         return (
-          <tr>
+          <tr style={{ animation: `fadeIn linear ${0.2 * index}s` }}>
             <td>
               <p>{el.name}</p>
             </td>
@@ -109,7 +109,7 @@ const Dashboard = () => {
           </div>
 
           <ul className="box-info">
-            <li>
+            <li style={{ animation: `fadeIn linear ${0.1}s` }}>
               <i className="bx bxs-calendar-check">
                 <TbMoneybag />
               </i>
@@ -117,25 +117,31 @@ const Dashboard = () => {
                 <h3>Stan konta</h3>
                 <p>{userData.balance} zł</p>
               </span>
-              <buttom
-                className="add-button"
-                onClick={() => {
-                  document
-                    .querySelector(".popup-window")
-                    .classList.toggle("show-popup");
-                }}
-              >
-                <IoMdAdd />
-              </buttom>
-              <div className="popup-window">
-                <span style={{ textAlign: "center" }}>Podaj kwote</span>
-                <input type="number" id="amount" />
-                <button>
+              <div style={{ display: "block", position: "relative" }}>
+                <buttom
+                  className="add-button"
+                  onClick={() => {
+                    document
+                      .querySelector(".popup-window")
+                      .classList.toggle("show-popup");
+                  }}
+                >
                   <IoMdAdd />
-                </button>
+                </buttom>
+              </div>
+              <div style={{ display: "block", position: "relative" }}>
+                <div className="popup-window">
+                  <span style={{ textAlign: "center", fontWeight: "bold" }}>
+                    Podaj kwote:{" "}
+                  </span>
+                  <input type="number" id="amount" placeholder="Kwota" />
+                  <button>
+                    <IoMdAdd />
+                  </button>
+                </div>
               </div>
             </li>
-            <li>
+            <li style={{ animation: `fadeIn linear ${0.3}s` }}>
               <i className="bx bxs-group">
                 <HiArrowSmallUp />
               </i>
@@ -144,7 +150,7 @@ const Dashboard = () => {
                 <p>{spentMoney}zł</p>
               </span>
             </li>
-            <li>
+            <li style={{ animation: `fadeIn linear ${0.4}s` }}>
               <i className="bx bxs-dollar-circle">
                 <HiArrowSmallDown />
               </i>
@@ -155,8 +161,14 @@ const Dashboard = () => {
             </li>
           </ul>
 
-          <div className="table-data">
-            <div className="order">
+          <div
+            className="table-data"
+            style={{ animation: `fadeIn linear ${0.4}s` }}
+          >
+            <div
+              className="order"
+              style={{ animation: `fadeIn linear ${0.4}s` }}
+            >
               <div className="head">
                 <h3>Histora wydatków i przychodów</h3>
                 <i className="bx bx-search"></i>
@@ -175,14 +187,20 @@ const Dashboard = () => {
                 <tbody>{history}</tbody>
               </table>
             </div>
-            <div className="order">
+            <div
+              className="order"
+              style={{ animation: `fadeIn linear ${0.4}s` }}
+            >
               <div className="head">
                 <h3>Porównywania wydatków</h3>
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>
             </div>
-            <div className="profile-card">
+            <div
+              className="profile-card"
+              style={{ animation: `fadeIn linear ${0.4}s` }}
+            >
               <div className="head" style={{ width: 100 + "%" }}>
                 <h3>Profil</h3>
                 <i className="bx bx-search"></i>

@@ -94,7 +94,7 @@ const Transaction = () => {
             </button>
           </div>
         </div>
-        <section id="content">
+        <section id="content" >
           <main>
             <div className="head-title">
               <div className="left">
