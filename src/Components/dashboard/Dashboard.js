@@ -5,12 +5,13 @@ import { TbMoneybag } from "react-icons/tb";
 import { HiArrowSmallUp, HiArrowSmallDown } from "react-icons/hi2";
 import axios from "axios";
 import { IoSettingsOutline } from "react-icons/io5";
+import { formatDate } from "../histroy/HistoryItem";
 
 const Dashboard = () => {
   const userData = JSON.parse(window.localStorage.getItem("userData"));
   let emailFromCookie = document.cookie.substr(6);
   let [transactionsData, setTransactionsData] = useState([]);
-
+  
   useEffect(() => {
     axios
       .post("http://localhost:3001/history", {
@@ -35,6 +36,28 @@ const Dashboard = () => {
           .filter((element) => element.type === "Przychody")
           .reduce((x, { amount }) => x + amount, 0);
 
+  const history = 
+    typeof transactionsData.map != "function" 
+      ? <tr><td colSpan={5} style={{textAlign: "center"}}>Brak danych o historii</td></tr>
+      : transactionsData.map(el =>{
+        return <tr>
+                      <td>
+                        <p>{el.name}</p>
+                      </td>
+                      <td>{formatDate(el.transaction_date)}</td>
+                      <td>
+                        {el.type == "Wydatki" ? (
+                          <span className="status spend">{el.type}</span>
+                        ) : (
+                          <span className="status incom">{el.type}</span>
+                        )}
+                      </td>
+                      <td>{el.description}</td>
+                      <td>{el.amount}zł</td>
+        </tr>
+      })   
+
+
   const content =
     emailFromCookie === userData.email || userData.email != undefined ? (
       <section id="content">
@@ -44,7 +67,7 @@ const Dashboard = () => {
               <h1>Dashboard</h1>
               <ul className="breadcrumb">
                 <li>
-                  <a href="#">Dashboard</a>
+                  <a href="#">Strona główna</a>
                 </li>
                 <li>
                   <i className="bx bx-chevron-right"></i>
@@ -76,7 +99,7 @@ const Dashboard = () => {
                 <HiArrowSmallUp />
               </i>
               <span className="text">
-                <h3>Wydatki</h3>
+                <h3>Wydatki z tego miesiąca</h3>
                 <p>{spentMoney}zł</p>
               </span>
             </li>
@@ -85,7 +108,7 @@ const Dashboard = () => {
                 <HiArrowSmallDown />
               </i>
               <span className="text">
-                <h3>Przychody</h3>
+                <h3>Przychody z tego miesiąca</h3>
                 <p>{incomMoney}zł</p>
               </span>
             </li>
@@ -94,7 +117,7 @@ const Dashboard = () => {
           <div className="table-data">
             <div className="order">
               <div className="head">
-                <h3>Histora</h3>
+                <h3>Histora wydatków i przychodów</h3>
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>
@@ -109,32 +132,23 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <p>John Doe</p>
-                    </td>
-                    <td>01-10-2024</td>
-                    <td>
-                      <span className="status incom">Przychody</span>
-                    </td>
-                    <td>Wypłata</td>
-                    <td>2500 zł</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p>John Doe</p>
-                    </td>
-                    <td>02-10-2024</td>
-                    <td>
-                      <span className="status spend">Wydatki</span>
-                    </td>
-                    <td>Karma dla kota</td>
-                    <td>70 zł</td>
-                  </tr>
+                  {history}
                 </tbody>
               </table>
             </div>
+            <div className="order">
+              <div className="head">
+                <h3>Porównywania wydatków</h3>
+                <i className="bx bx-search"></i>
+                <i className="bx bx-filter"></i>
+              </div>
+            </div>
             <div className="profile-card">
+              <div className="head" style={{width: 100+"%"}}>
+                <h3 >Profil</h3>
+                <i className="bx bx-search"></i>
+                <i className="bx bx-filter"></i>
+              </div>
               <div className="image">
                 <img src="" alt="" className="profile-pic" />
               </div>

@@ -68,7 +68,7 @@ const Transaction = () => {
             <img src="img/tick.png" alt="" />
             <h2>Błąd</h2>
             <p>
-              Foromularz dodawania transakcji jest niepoprawny. Popraw błędne
+              Formularz dodawania wydatków i przychodów jest niepoprawny. Popraw błędne
               pola.
             </p>
             <button
@@ -86,7 +86,7 @@ const Transaction = () => {
           <main>
             <div className="head-title">
               <div className="left">
-                <h1>Transakcje</h1>
+                <h1>Śledzenie wydatków i przychodów</h1>
                 <ul className="breadcrumb">
                   <li>
                     <i className="bx bx-chevron-right"></i>

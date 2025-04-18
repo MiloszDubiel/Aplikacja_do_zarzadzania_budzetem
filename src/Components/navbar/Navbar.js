@@ -43,7 +43,7 @@ const Navbar = () => {
               <span className="icon">
                 <GrTransaction className="icons" />
               </span>
-              Transakcje
+              Śledzenie wydatków i przychodów
             </Link>
           </li>
           <li>
@@ -51,7 +51,7 @@ const Navbar = () => {
               <span className="icon">
                 <MdHistory className="icons" />
               </span>
-              Histoiria
+              Historia
             </Link>
           </li>
           <li>
@@ -59,7 +59,7 @@ const Navbar = () => {
               <span className="icon">
                 <IoStatsChartOutline className="icons" />
               </span>
-              Statystyki
+              Wizualizacji wydatków
             </Link>
           </li>
           <li>

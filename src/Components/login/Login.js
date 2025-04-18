@@ -43,11 +43,11 @@ const Login = () => {
           infoDiv.current.style.display = "block";
           infoDiv.current.textContent = res.data.info;
           if (checkbox.current.checked) {
-            var now = new Date();
-            var time = now.getTime();
-            var expireTime = time + 1000 * 60;
+            let now = new Date();
+            let time = now.getTime();
+            let expireTime = time + 100000 * 60;
             now.setTime(expireTime);
-            document.cookie = `email=${res.data.data[0].email}, ;`;
+            document.cookie = `email=${res.data.data[0].email}; expires=${now.toGMTString()};`;
           } else {
             document.cookie = `email=;`;
           }

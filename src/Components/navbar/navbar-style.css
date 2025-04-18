@@ -17,13 +17,13 @@
   background: #fff;
   border-radius: 6px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  position: sticky;
+  position: fixed;
   top: 0px;
   left: 0px;
   z-index: 1111;
 }
 .sidebar:hover {
-  width: 260px;
+  width: 320px;
 }
 .sidebar .sidebar-header {
   display: flex;

@@ -7,6 +7,9 @@ a {
 li {
   list-style: none;
 }
+td{
+  text-overflow: ellipsis;
+}
 
 :root {
   --poppins: "Poppins", sans-serif;
@@ -29,6 +32,7 @@ li {
   width: 100%;
   transition: 0.3s ease;
   height: 100%;
+  margin-left: 80px;
 }
 /* MAIN */
 #content main {
@@ -143,7 +147,8 @@ li {
 }
 #content main .table-data .order table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 20px 0;
 }
 #content main .table-data .order table th {
   padding-bottom: 12px;
@@ -152,7 +157,7 @@ li {
   border-bottom: 1px solid var(--grey);
 }
 #content main .table-data .order table td {
-  padding: 16px 0;
+  padding: 20px 0px
 }
 
 #content main .table-data .order table tbody tr:hover {
@@ -254,6 +259,9 @@ li {
   #content nav .nav-link {
     display: none;
   }
+  .profile-card{
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 1053px) {
@@ -264,12 +272,16 @@ li {
   .profile-card {
     max-width: 100%;
   }
+  .profile-card{
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 576px) {
   #content nav form .form-input input {
     display: none;
   }
+ 
 
   #content nav form .form-input button {
     width: auto;
