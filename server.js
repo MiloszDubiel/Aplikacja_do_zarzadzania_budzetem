@@ -25,8 +25,8 @@ app.use(express.json());
 
 const salt = new Uint8Array(16);
 crypto.getRandomValues(salt);
-//Endpointy
 
+//Endpointy
 app.post("/register", (req, res) => {
   const { email, password } = req.body;
   let sql = "SELECT * FROM users WHERE email = ?";
@@ -47,19 +47,38 @@ app.post("/register", (req, res) => {
   });
 });
 
+app.post("/set-amount", (req, res) => {
+  const { amount, email } = req.body;
+  let sql = "UPDATE users SET balance = balance + ? WHERE  email = ?";
+  connection.query(sql, [amount, email], (err, result) => {
+    if (err) res.json({ info: err });
+    else {
+      res.json({ info: "Dodano kwote" });
+    }
+  });
+});
+
+app.post("/dashboard-data", (req, res) => {
+  const { email } = req.body;
+  let sql = "SELECT * FROM users WHERE email = ?";
+  connection.query(sql, [email], (err, result) => {
+    if (err) res.json({ info: err });
+    else {
+      res.json({ data: result });
+    }
+  });
+});
+
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
   let sql =
-    "SELECT users.id, users.name, users.password, users.lastname, users.email, users.balance, users.profile_picture, users.created_at, transactions.user_id FROM users LEFT JOIN transactions ON users.id = transactions.user_id WHERE email = ?";
+    "SELECT users.id, users.email, users.password, transactions.user_id FROM users LEFT JOIN transactions ON users.id = transactions.user_id WHERE email = ?";
 
   connection.query(sql, [email], (err, result) => {
     if ([...result].length == 0) {
-      console.log(result);
       res.json({ info: "Konto nie istnieje" });
       return;
     }
-
     let hash = result[0].password;
     bcrypt.compare(password, hash).then((resp) => {
       if (resp) res.json({ info: "Zalogowano", data: result });
@@ -67,6 +86,7 @@ app.post("/login", (req, res) => {
     });
   });
 });
+
 app.post("/history", (req, res) => {
   const { userID } = req.body;
   let sql =
@@ -79,6 +99,7 @@ app.post("/history", (req, res) => {
     res.json(result);
   });
 });
+
 app.post("/delete-record", (req, res) => {
   const { userID, transactionID } = req.body;
   let sql = "DELETE FROM transactions WHERE id = ? AND user_id = ? ";

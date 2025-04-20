@@ -3,7 +3,6 @@ import "./navbar-style.css";
 import {
   MdOutlineDashboard,
   MdHistory,
-  MdOutlineAccountCircle,
 } from "react-icons/md";
 import { GrTransaction, GrPowerShutdown } from "react-icons/gr";
 import { IoStatsChartOutline } from "react-icons/io5";

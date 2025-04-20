@@ -13,7 +13,6 @@ export const formatDate = (dateString) => {
   return `${day}.${month}.${year}`;
 };
 
-
 const HistoryItem = ({ isActive, sortBy }) => {
   let [historyData, setHistoryData] = useState([" "]);
 

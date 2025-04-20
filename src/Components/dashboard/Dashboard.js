@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./dashboard-style.css";
 import ForbiddenContent from "../forbidden/Forbedden";
 import { TbMoneybag } from "react-icons/tb";
@@ -13,7 +13,10 @@ const Dashboard = () => {
   const userData = JSON.parse(window.localStorage.getItem("userData"));
   let emailFromCookie = document.cookie.substr(6);
   let [transactionsData, setTransactionsData] = useState([]);
+  let [dashboardData, setDashboardData] = useState(null);
   let navigation = useNavigate();
+  let amount = useRef(null);
+  let [forceUpdate, setforceUpdate] = useState(true);
 
   useEffect(() => {
     axios
@@ -23,7 +26,16 @@ const Dashboard = () => {
       .then((res) => {
         setTransactionsData(res.data);
       });
-  }, []);
+
+    axios
+      .post("http://localhost:3001/dashboard-data", {
+        email: userData.email,
+      })
+      .then((res) => {
+        setDashboardData(res.data.data[0]);
+      });
+    console.log("DUPA");
+  }, [forceUpdate]);
 
   const spentMoney =
     typeof transactionsData.filter != "function"
@@ -38,6 +50,21 @@ const Dashboard = () => {
       : transactionsData
           .filter((element) => element.type === "Przychody")
           .reduce((x, { amount }) => x + amount, 0);
+
+  const sendAmount = () => {
+    let amountOfMoney = String(amount.current.value).trim();
+
+    if (!amountOfMoney) {
+      alert("Nie podano kowty");
+    } else {
+      axios.post("http://localhost:3001/set-amount", {
+        amount: amountOfMoney,
+        email: userData.email,
+      });
+      setforceUpdate(!forceUpdate);
+      amount.current.value = "";
+    }
+  };
 
   const history =
     typeof transactionsData.map != "function" ? (
@@ -115,7 +142,7 @@ const Dashboard = () => {
               </i>
               <span className="text">
                 <h3>Stan konta</h3>
-                <p>{userData.balance} zł</p>
+                <p>{dashboardData == null ? "" : dashboardData.balance} zł</p>
               </span>
               <div style={{ display: "block", position: "relative" }}>
                 <buttom
@@ -134,8 +161,13 @@ const Dashboard = () => {
                   <span style={{ textAlign: "center", fontWeight: "bold" }}>
                     Podaj kwote:{" "}
                   </span>
-                  <input type="number" id="amount" placeholder="Kwota" />
-                  <button>
+                  <input
+                    type="number"
+                    id="amount"
+                    placeholder="Kwota"
+                    ref={amount}
+                  />
+                  <button onClick={sendAmount}>
                     <IoMdAdd />
                   </button>
                 </div>
@@ -196,6 +228,51 @@ const Dashboard = () => {
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>
+              <div className="compare-wrapper">
+                <h3>Porównaj wydatki</h3>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Piewrszy okres</label>
+                    <input type="month" name="period1" required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Drugi okres</label>
+                    <input type="month" name="period2" required />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Kategoria</label>
+                    <select >
+                      <option value={1}>Jedzenie</option>
+                      <option value={2}>Transport</option>
+                      <option value={3}>Rozrywka</option>
+                      <option value={4}>Wynagrodzenie</option>
+                      <option value={5}>Zakupy</option>
+                      <option value={6}>Inwestycje</option>
+                      <option value={7}>Subskrypcje</option>
+                      <option value={8}>Edukacja</option>
+                      <option value={9}>Zdrowie</option>
+                      <option value={10}>Oszczędności</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Typ</label>
+                    <select name="type">
+                      <option value="">Wszystko</option>
+                      <option value="Przychody">Przychody</option>
+                      <option value="Wydatki">Wydatki</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="submit" className="button-compare">
+                  Porównaj
+                </button>
+              </div>
             </div>
             <div
               className="profile-card"
@@ -210,21 +287,26 @@ const Dashboard = () => {
                 <img src="" alt="" className="profile-pic" />
               </div>
               <div className="data">
-                <h2>{userData.name + " " + userData.lastname}</h2>
+                <h2>
+                  {dashboardData == null ? " " : dashboardData.name}{" "}
+                  {dashboardData == null ? " " : dashboardData.lastname}
+                </h2>
               </div>
               <div className="row">
                 <div className="user-info">
                   <h3>Email:</h3>
-                  <span>{userData.email}</span>
+                  <span>
+                    {dashboardData == null ? "" : dashboardData.email}
+                  </span>
                 </div>
                 <div className="user-info">
                   <h3>Data dołączenia: </h3>
                   <span>
-                    {userData === null
+                    {dashboardData == null
                       ? ""
-                      : userData.created_at.substring(
+                      : dashboardData.created_at.substring(
                           0,
-                          userData.created_at.indexOf("T")
+                          dashboardData.created_at.indexOf("T")
                         )}
                   </span>
                 </div>

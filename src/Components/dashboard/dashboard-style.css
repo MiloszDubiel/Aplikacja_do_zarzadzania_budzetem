@@ -330,6 +330,70 @@ td {
   cursor: pointer;
 }
 
+
+/*COMPARE*/
+.compare-wrapper select {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 36px;
+  background: var(--orange);
+  border: none;
+  color: var(--light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+  font-weight: 500;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.compare-wrapper select option {
+  background: #fff;
+  color: var(--dark);
+  cursor: pointer;
+}
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.button-compare {
+  width: 100%;
+  height: 56px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: #eca217;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-bottom: 28px;
+  transition: 0.3s ease;
+}
+.button-compare:hover {
+  background: #eea010;
+}
+
+
+
+/*MEDIA QUERY */
+
 @media screen and (max-width: 768px) {
   #content {
     width: calc(100% - 60px);
