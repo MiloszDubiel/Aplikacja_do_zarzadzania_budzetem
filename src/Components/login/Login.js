@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./login-style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   let email = useRef(null);
@@ -13,9 +14,30 @@ const Login = () => {
   let checkbox = useRef(null);
   const naviagate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies(["email"]);
 
   useEffect(() => {
-    if (document.cookie.substr(6).length > 0) naviagate("/dashboard");
+     const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+     if (token) {
+       axios
+         .get("http://localhost:3001/user-profile", {
+           headers: {
+             Authorization: token,
+           },
+         })
+         .then((res) => {
+           console.log(res)
+            localStorage.setItem(
+              "userData",
+              JSON.stringify(res.data)
+           );
+           naviagate("/dashboard");
+         })
+         .catch(() => {
+           localStorage.removeItem("token");
+         });
+     }
   });
 
   useEffect(() => {
@@ -25,6 +47,7 @@ const Login = () => {
       .post("http://localhost:3001/login", {
         email: userData.email,
         password: userData.passoword,
+        rememberMe: userData.rememberMe,
       })
       .then((res) => {
         if (
@@ -35,22 +58,15 @@ const Login = () => {
           infoDiv.current.style.display = "block";
           infoDiv.current.textContent = res.data.info;
         } else {
-          window.localStorage.setItem(
+          localStorage.setItem(
             "userData",
             JSON.stringify(...res.data.data)
           );
-          setTimeout(() => naviagate("/dashboard"), 1000);
+          setTimeout(() => naviagate("/dashboard"), 500);
           infoDiv.current.style.display = "block";
           infoDiv.current.textContent = res.data.info;
-          if (checkbox.current.checked) {
-            let now = new Date();
-            let time = now.getTime();
-            let expireTime = time + 100000 * 60;
-            now.setTime(expireTime);
-            document.cookie = `email=${res.data.data[0].email}; expires=${now.toGMTString()};`;
-          } else {
-            document.cookie = `email=;`;
-          }
+          const token = res.data.token;
+          localStorage.setItem("token", token);
         }
       });
   }, [userData]);
@@ -71,6 +87,7 @@ const Login = () => {
       setUserData({
         email: emailValue,
         passoword: passwordValue,
+        rememberMe: checkbox.checked
       });
     }
   };

@@ -1,9 +1,6 @@
 import React from "react";
 import "./navbar-style.css";
-import {
-  MdOutlineDashboard,
-  MdHistory,
-} from "react-icons/md";
+import { MdOutlineDashboard, MdHistory } from "react-icons/md";
 import { GrTransaction, GrPowerShutdown } from "react-icons/gr";
 import { IoStatsChartOutline } from "react-icons/io5";
 import { CiMoneyBill } from "react-icons/ci";
@@ -12,10 +9,10 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const userData = JSON.parse(window.localStorage.getItem("userData"));
-  let emailFromCookie = document.cookie.substr(6);
+  const token = localStorage.getItem("token"); 
 
   const content =
-    emailFromCookie === userData.email || userData.email != undefined ? (
+    token ? (
       <aside className="sidebar">
         <div className="sidebar-header">
           <img src="images/logo.png" alt="logo" />
@@ -85,8 +82,8 @@ const Navbar = () => {
             <Link
               to="/"
               onClick={() => {
-                document.cookie = "email=;";
-                window.localStorage.setItem("userData", JSON.stringify({}));
+                localStorage.removeItem("token");
+                localStorage.setItem("userData", JSON.stringify({}));
                 document
                   .querySelector(".user-setting")
                   .classList.remove("show");

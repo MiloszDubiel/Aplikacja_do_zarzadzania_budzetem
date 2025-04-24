@@ -7,8 +7,9 @@ import axios from "axios";
 import useForceUpdate from "use-force-update";
 
 const Transaction = () => {
-  const userData = JSON.parse(window.localStorage.getItem("userData"));
-  let emailFromCookie = document.cookie.substr(6);
+   const userData = JSON.parse(window.localStorage.getItem("userData"));
+   const token = localStorage.getItem("token"); 
+
 
   const categoryInput = useRef(null);
   const dateInput = useRef(null);
@@ -61,7 +62,7 @@ const Transaction = () => {
   };
 
   const content =
-    emailFromCookie === userData.email || userData.email != undefined ? (
+    token ? (
       <>
         <div
           class="container-popup"

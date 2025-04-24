@@ -11,7 +11,7 @@ import { IoMdAdd } from "react-icons/io";
 
 const Dashboard = () => {
   const userData = JSON.parse(window.localStorage.getItem("userData"));
-  let emailFromCookie = document.cookie.substr(6);
+  const token = localStorage.getItem("token"); 
   let [transactionsData, setTransactionsData] = useState([]);
   let [dashboardData, setDashboardData] = useState(null);
   let navigation = useNavigate();
@@ -102,7 +102,7 @@ const Dashboard = () => {
     );
 
   const content =
-    emailFromCookie === userData.email || userData.email != undefined ? (
+    token ? (
       <section
         id="content"
         onMouseUp={(event) => {

@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const mysql = require("mysql");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -25,6 +26,8 @@ app.use(express.json());
 
 const salt = new Uint8Array(16);
 crypto.getRandomValues(salt);
+
+const secretKey = "tajny_klucz_jwt";
 
 //Endpointy
 app.post("/register", (req, res) => {
@@ -70,7 +73,7 @@ app.post("/dashboard-data", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
   let sql =
     "SELECT users.id, users.email, users.password, transactions.user_id FROM users LEFT JOIN transactions ON users.id = transactions.user_id WHERE email = ?";
 
@@ -81,10 +84,35 @@ app.post("/login", (req, res) => {
     }
     let hash = result[0].password;
     bcrypt.compare(password, hash).then((resp) => {
-      if (resp) res.json({ info: "Zalogowano", data: result });
-      else res.json({ info: "Niepoprawne hasło" });
+      if (resp) {
+        const user = result[0];
+
+        const token = jwt.sign(
+          { id: user.id, email: user.email, transactionID: user.user_id },
+          secretKey,
+          {
+            expiresIn: rememberMe ? "30d" : "2h",
+          }
+        );
+        res.json({ info: "Zalogowano", data: result, token });
+      } else res.json({ info: "Niepoprawne hasło" });
     });
   });
+});
+
+app.get("/user-profile", authenticateToken, (req, res) => {
+  const userId = req.user.id;
+
+  connection.query(
+    "SELECT email, balance, id FROM users WHERE id = ?",
+    [userId],
+    (err, results) => {
+      if (err || results.length === 0)
+        return res.status(404).json({ message: "Nie znaleziono użytkownika" });
+
+      res.json(results[0]);
+    }
+  );
 });
 
 app.post("/history", (req, res) => {
@@ -125,3 +153,15 @@ app.post("/insert-record", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at port: ${port}`);
 });
+
+function authenticateToken(req, res, next) {
+  const token = req.headers["authorization"];
+
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, secretKey, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
